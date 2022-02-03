@@ -25,14 +25,11 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.FLOAT,
     },
-    platforms: {
-      type: DataTypes.STRING,
-    },
     background_image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     platforms: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
   });

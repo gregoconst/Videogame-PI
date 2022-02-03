@@ -61,7 +61,7 @@ const router = Router();
 // };
 
 ////////////////////////////////
-router.get("/videogames", async (req, res) => {
+router.get("/videogames", async (req, res, next) => {
   const { name } = req.query;
   try {
     let videogamesApi = [];
@@ -99,7 +99,12 @@ router.get("/videogames", async (req, res) => {
         rating: element.rating,
         released: element.released,
         platforms: element.platforms?.map((plat) => plat.platform.name),
-        genres: element.genres?.map((gen) => gen.name),
+        genres: element.genres?.map((gen) => {
+          return {
+            genero: gen.name,
+            id: gen.id,
+          };
+        }),
       };
     });
     const juegos = [...videogamesDb, ...videogamesProps];
@@ -116,7 +121,7 @@ router.get("/videogames", async (req, res) => {
   }
 });
 
-router.get("/videogame/:id", async (req, res) => {
+router.get("/videogame/:id", async (req, res, next) => {
   const { id } = req.params;
   let juego;
   try {
@@ -143,22 +148,98 @@ router.get("/videogame/:id", async (req, res) => {
   }
 });
 
-router.get("/genres", async (req, res) => {
+router.get("/genres", async (req, res, next) => {
   try {
     const generosApi = await axios.get(
       `https://api.rawg.io/api/genres?key=${API_KEY}`
     );
-    const generosMap = generosApi.data.results?.map((gen) => gen.name); //me traigo un array con los nombres de los generos
-    const generosEnDB = generosMap.forEach(async (e) => {
-      console.log(e.name)
-     return await Genre.findOrCreate({
-        where: { name: e.name }
+    const generosMap = generosApi.data.results?.map((gen) => ({
+      name: gen.name,
+      id: gen.id,
+    })); //me traigo un array con los nombres y el id de los generos
+    generosMap.forEach(async (e) => {
+      return await Genre.findOrCreate({
+        where: { name: e.name, id: e.id },
+        // exclude: {createdAt, updatedAt}
       });
     });
-    console.log(generosEnDB)
-    res.send(generosMap);
+    const generosPasadosAdB = await Genre.findAll();
+    return res.send(generosPasadosAdB);
   } catch (error) {
-    return res.json(error);
+    next(error)
+    return res.status(404).json({ error, msg: "Generos no encontrados" });
   }
 });
+
+router.post("/videogame", async (req, res, next) => {
+  console.log(req.body)
+  const { name, description, released, rating, platforms, genres } = req.body;
+  try {
+    let nuevoJuego = await Videogame.create({
+      name,
+      description,
+      released,
+      rating,
+      platforms,
+    });
+    console.log(typeof genres)
+        if (typeof genres === 'number'){
+            await nuevoJuego.addGenre(genres, {through:'game_genre'})
+        }
+        else{
+          await nuevoJuego.addGenre(genres[0], {through:'game_genre'})
+          await nuevoJuego.addGenre(genres[1], {through:'game_genre'})
+        }
+    // const GenreDB = await Genre.findAll({
+    //   where: { name: genres },
+    // });
+    // nuevoJuego.addGenre(GenreDB);
+    const result = await Videogame.findOne({
+      where: {
+          name: name
+      },
+      include: Genre
+  });
+  return res.status(200).json({result, msg:"Juego creado correctamente"});
+  } catch (error) {
+     next(error);
+    }
+  });
+  // // {name, description, released, rating, platforms, genres}
+  // var { name, description, released, rating, platforms, genres } = req.body;
+  // console.log(req.body)
+  // try {
+  //     var nuevoJuego = Videogame.create({
+  //           name,
+  //           description,
+  //           released,
+  //           rating,
+  //           platforms,
+  //       });
+  //       genres.forEach(async (genero) => {
+  //           const genEnviado = await Genre.findOne({
+  //               where: { name: genero.name },
+  //             });
+  //             await nuevoJuego.addGenre(genEnviado.id);
+  //           });
+  //           res.status(200).json(nuevoJuego);
+  //         } catch (error) {
+  //             console.log(error)
+  //             res.status(404).json({ error, msg: "El videojuego no se pudo crear" });
+  //           }
+// const { name, description, released, rating, platforms, genres} = req.body
+//   const newVideogame = await Videogame.create({
+//           name,
+//           description,
+//           released,
+//           rating,
+//           platforms
+//   })
+//   genres.forEach(async (genre) => {
+//       const actualGenre = await Genre.findOne({
+//                               where: {name : genre.name}
+//                           })
+//       await newVideogame.addGenre(actualGenre.id)
+//   });
+//   res.send(newVideogame)
 module.exports = router;
