@@ -12,7 +12,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-//FUNCIONES/////////////////////zzz
+//FUNCIONES////////////////////
 // const ObtenerApi = async () => {
 //   let lista = [];
 //   const videogamesList = await Promise.all([
@@ -73,9 +73,11 @@ router.get("/videogames", async (req, res) => {
     };
     if (name) {
       videogamesDb = await Videogame.findAll(condicionDb);
-      videogamesApi = await Promise.all([axios.get(
-        `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`
-      )]) 
+      videogamesApi = await Promise.all([
+        axios.get(
+          `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`
+        ),
+      ]);
       console.log("primer llamado api query", videogamesApi);
     } else {
       videogamesApi = await Promise.all([
@@ -114,4 +116,49 @@ router.get("/videogames", async (req, res) => {
   }
 });
 
+router.get("/videogame/:id", async (req, res) => {
+  const { id } = req.params;
+  let juego;
+  try {
+    if (isNaN(id)) {
+      juego = await Videogame.findByPk(id, { include: Genre });
+    } else {
+      const videogameApi = (
+        await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+      ).data;
+      juego = {
+        id: videogameApi.id,
+        name: videogameApi.name,
+        genres: videogameApi.genres,
+        background_image: videogameApi.background_image,
+        description: videogameApi.description,
+        released: videogameApi.released,
+        rating: videogameApi.rating,
+        platforms: videogameApi.platforms,
+      };
+    }
+    return res.status(200).json(juego);
+  } catch (error) {
+    return res.json(error);
+  }
+});
+
+router.get("/genres", async (req, res) => {
+  try {
+    const generosApi = await axios.get(
+      `https://api.rawg.io/api/genres?key=${API_KEY}`
+    );
+    const generosMap = generosApi.data.results?.map((gen) => gen.name); //me traigo un array con los nombres de los generos
+    const generosEnDB = generosMap.forEach(async (e) => {
+      console.log(e.name)
+     return await Genre.findOrCreate({
+        where: { name: e.name }
+      });
+    });
+    console.log(generosEnDB)
+    res.send(generosMap);
+  } catch (error) {
+    return res.json(error);
+  }
+});
 module.exports = router;
