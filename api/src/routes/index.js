@@ -121,7 +121,7 @@ router.get("/videogames", async (req, res, next) => {
   }
 });
 
-router.get("/videogame/:id", async (req, res, next) => {
+router.get("/videogames/:id", async (req, res, next) => {
   const { id } = req.params;
   let juego;
   try {

@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.container {
+    background-image: url(https://img.wallpapersafari.com/desktop/1920/1080/87/15/x2peuw.jpg);
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.button {
+    text-align: justify;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.button p{
+    font-family: 'Press Start 2P', cursive;
+    text-decoration: none;
+    color: black;
+}
