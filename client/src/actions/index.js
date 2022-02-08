@@ -11,7 +11,7 @@ export const getVideogames = () => async (dispatch) => {
   }
 };
 
-export const getGameGenres = () => async (dispatch) => {
+export const getVideogameGenres = () => async (dispatch) => {
     try {
       const resp = await axios.get(GENRES);
      return dispatch({ type: "GET_GENRES", payload: resp.data });
@@ -38,4 +38,19 @@ export const getGameGenres = () => async (dispatch) => {
       console.log(error);
       dispatch({type: 'GET_VIDEOGAMES_NAME', payload: []});
     }
+  };
+
+  export const setVideogamesOrder = (order) => (dispatch) => {
+    dispatch({type: 'VIDEOGAMES_ORDER', payload: order});
+  };
+  export const setVideogamesOrigin = (origin) => (dispatch) => {
+    dispatch({type: 'VIDEOGAMES_ORIGIN', payload: origin});
+  };
+  
+  export const setVideogamesGenres = (genre) => (dispatch) => {
+    dispatch({type: 'VIDEOGAMES_GENRE', payload: genre});
+  };
+  
+  export const clearVideogameDetail = () => (dispatch) => {
+    dispatch({type: 'CLEAR_VIDEOGAME_DETAIL'});
   };

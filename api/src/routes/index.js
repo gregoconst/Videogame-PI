@@ -94,6 +94,7 @@ router.get("/videogames", async (req, res, next) => {
     }
     const videogamesProps = lista?.map((element) => {
       return {
+        id: element.id,
         name: element.name,
         img: element.background_image,
         rating: element.rating,
@@ -105,6 +106,7 @@ router.get("/videogames", async (req, res, next) => {
             id: gen.id,
           };
         }),
+        // genres: element.genres?.map((gen) => gen.name)
       };
     });
     const juegos = [...videogamesDb, ...videogamesProps];
@@ -174,6 +176,9 @@ router.get("/genres", async (req, res, next) => {
 router.post("/videogame", async (req, res, next) => {
   console.log(req.body)
   const { name, description, released, rating, platforms, genres } = req.body;
+  if (!name || !description || !platforms){
+    return res.status(404).send('Necessary parameters not found');
+}
   try {
     let nuevoJuego = await Videogame.create({
       name,
@@ -205,7 +210,7 @@ router.post("/videogame", async (req, res, next) => {
      next(error);
     }
   });
-  // // {name, description, released, rating, platforms, genres}
+   // {name, description, released, rating, platforms, genres}
   // var { name, description, released, rating, platforms, genres } = req.body;
   // console.log(req.body)
   // try {
