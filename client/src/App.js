@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Create from './components/Create';
-import Detail from './components/Detail';
+import {Detail} from './components/Detail';
 import HomeContainer from './components/HomeContainer';
 import Landing from './components/Landing';
 function App() {

@@ -1,17 +1,27 @@
+import { GetVideogamesList } from "../controladores"
+
 const initialState = {
     videogames: [],
-    videogamesList : [],
+    videogamesList : {
+        todos: [],
+        actual: []
+    },
     videogamesDetail: [],
     videogamesGenres: [],
 
 }
+
+
 
 function rootReducer (state = initialState, action) {
     if (action.type === "GET_VIDEOGAMES") {
         return {
           ...state, 
           videogames: action.payload,
-          videogamesList: action.payload
+          videogamesList: {
+              todos: action.payload,
+              actual: GetVideogamesList(action.payload)
+          }
         }
     } else if(action.type === "GET_GENRES"){
         return {
@@ -28,7 +38,7 @@ function rootReducer (state = initialState, action) {
             ...state,
             videogames: action.payload
         }
-    } else return state;
+    }  return state;
 }
 
 export default rootReducer;
