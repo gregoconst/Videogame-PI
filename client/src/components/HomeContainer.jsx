@@ -5,30 +5,51 @@ import { Link } from "react-router-dom";
 import { getVideogameGenres, getVideogames } from "../actions";
 import { Cards } from "./Cards";
 import { Pages } from "./Pages";
-
-var contador = 0;
-function stateAux() {
-  contador++;
-  return contador;
-}
-
+import { Filter } from './Filter';
+import { setVideogamesOrder, setVideogamesRating, setVideogamesGenres, setVideogamesOrigin } from './../actions/index';
 export default function Home() {
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames);
-  const videogamesList = useSelector((state) => state.videogamesList);
+  // const videogamesList = useSelector((state) => state.videogamesList);
   useEffect(() => {
     dispatch(getVideogames());
     dispatch(getVideogameGenres());
   }, []);
-  console.log(getVideogameGenres());
-  // PAGINADO //
+  ///// FILTER ///////
+  const [order, setOrder] = useState("")
+  const handleChangeAlf = (e) =>{
+    dispatch(setVideogamesOrder(e.target.value))
+    setOrder(e.target.value)
+  }
+  const handleChangeRat = (e) =>{
+    dispatch(setVideogamesRating(e.target.value))
+    setOrder(e.target.value)
+  }
+
+  const handleChangeGen = (e) => {
+    dispatch(setVideogamesGenres(e.target.value))
+    setOrder(e.target.value)
+  }
+
+  const handleChangeOrigin = (e) => {
+    dispatch(setVideogamesOrigin(e.target.value))
+    setOrder(e.target.value)
+  }
+  ////////////////////
+ ////// PAGINADO ////////
   const [pagina, setPagina] = useState(1);
   const [juegosPorPagina, setJuegosPorPagina] = useState(15);
   const maxrender = videogames.length / juegosPorPagina;
-console.log(maxrender, "holaaaaaaaaaaaaaaaaaaaaaaaa");
+ ////////////////////////////////
+  if (!videogames.length) {
+    return (
+      <div>cargandooOOooOo</div>
+    )
+}
   return (
     <div>
-<Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
+      <Filter handleChangeAlf={handleChangeAlf} handleChangeRat={handleChangeRat} handleChangeGen={handleChangeGen} handleChangeOrigin={handleChangeOrigin}/>
+      <Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
       {videogames &&
         videogames
           .slice(
@@ -49,7 +70,6 @@ console.log(maxrender, "holaaaaaaaaaaaaaaaaaaaaaaaa");
               </Link>
             );
           })}
-
     </div>
   );
 }

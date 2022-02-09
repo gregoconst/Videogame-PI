@@ -100,13 +100,15 @@ router.get("/videogames", async (req, res, next) => {
         rating: element.rating,
         released: element.released,
         platforms: element.platforms?.map((plat) => plat.platform.name),
-        genres: element.genres?.map((gen) => {
-          return {
-            genero: gen.name,
-            id: gen.id,
-          };
-        }),
+        genres: element.genres?.map((gen) => gen.name),
+        inDB: false,
         // genres: element.genres?.map((gen) => gen.name)
+        // genres: element.genres?.map((gen) => {
+        //   return {
+        //     genero: gen.name,
+        //     id: gen.id,
+        //   };
+        // })
       };
     });
     const juegos = [...videogamesDb, ...videogamesProps];

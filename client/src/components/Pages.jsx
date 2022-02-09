@@ -29,16 +29,14 @@ export const Pages = ({pagina, setPagina, maxrender}) => {
   };
 
   const handleChange = (e) => {
-      setInput(e.target.value)
+      setInput(parseInt(e.target.value))
   }
-
-  console.log(pagina);
   return (
     <div>
-      <button disabled={pagina === 1 || pagina < 1} onClick={volverPagina}>Anterior</button>
+      <button disabled={pagina === 1 || pagina < 1} onClick={volverPagina}>◀</button>
       <input onChange={(e)=>handleChange(e)} onKeyDown={(e) => handleInput(e)} name="page" autoComplete="off" value={input} />
       <p> de {Math.ceil(maxrender)}</p>
-      <button disabled={pagina === Math.ceil(maxrender) || pagina > Math.ceil(maxrender)} onClick={proximaPagina}>Siguiente</button>
+      <button disabled={pagina === Math.ceil(maxrender) || pagina > Math.ceil(maxrender)} onClick={proximaPagina}>▶</button>
     </div>
   );
 };

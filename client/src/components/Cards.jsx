@@ -8,9 +8,9 @@ export const Cards = ({ id, name, genres, image, rating }) => {
       <h3>{name}</h3>
       <div>
         Generos:
-          {genres && genres.map((e) => (
-              <div key={e.id}>
-                  {e.genero}
+          {genres && genres.map((e,i) => (
+              <div key={i}>
+                  {e}
               </div>
           ))}
           <h4>Rating: {rating}</h4>

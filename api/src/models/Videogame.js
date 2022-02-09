@@ -32,5 +32,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
+    inDB: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false
+    }
   });
 };
