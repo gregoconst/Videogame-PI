@@ -1,10 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setVideogamesOrder,
-  setVideogamesOrigin,
-  setVideogamesGenres,
-} from "./../actions/index";
 
 export const Filter = ({handleChangeAlf, handleChangeRat, handleChangeGen, handleChangeOrigin}) => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 export const Pages = ({pagina, setPagina, maxrender}) => {
-  const [input, setInput] = useState(1); //estado local para que no se vaya seteando mientras escribo
+  const [input, setInput] = useState(1); //estado local
   const proximaPagina = () => {
     setInput(parseInt(input) + 1);
     setPagina(parseInt(pagina) + 1);
@@ -33,9 +33,11 @@ export const Pages = ({pagina, setPagina, maxrender}) => {
   }
   return (
     <div>
-      <button disabled={pagina === 1 || pagina < 1} onClick={volverPagina}>◀</button>
-      <input onChange={(e)=>handleChange(e)} onKeyDown={(e) => handleInput(e)} name="page" autoComplete="off" value={input} />
-      <p> de {Math.ceil(maxrender)}</p>
+      <button disabled={pagina === 1 || pagina < 1} onClick={volverPagina}>◀</button>&nbsp;
+      {/* <input onChange={(e)=>handleChange(e)} onKeyDown={(e) => handleInput(e)} name="page" autoComplete="off" value={input} /> */}
+      <button>{input}</button>
+      &nbsp;de&nbsp;
+       <button>{Math.ceil(maxrender)}</button>&nbsp;
       <button disabled={pagina === Math.ceil(maxrender) || pagina > Math.ceil(maxrender)} onClick={proximaPagina}>▶</button>
     </div>
   );

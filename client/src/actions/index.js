@@ -72,6 +72,36 @@ export const setVideogamesRating = (rating) => {
     payload: rating,
   };
 };
+
+export const createVideogames = async (payload) => {
+  try {
+    const resp = await axios.post(VIDEOGAMES, payload);
+    return resp
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// export const getPlatforms = () => {
+// 	return async (dispatch) => {
+// 		try {
+// 			const response = await api.get('/videogames');
+// 			const allPlatformsRaw = [];
+// 			response.data.forEach((game) => {
+// 				game.platforms.forEach((platform) => {
+// 					allPlatformsRaw.push(platform);
+// 				});
+// 			});
+// 			let hash = {};
+// 			const allPlatforms = allPlatformsRaw.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+
+// 			dispatch((allPlatforms))
+
+// 		} catch (error) {
+// 			console.log(error);
+// 		}
+// 	};
+// };
 // export const clearVideogameDetail = () => {
 //   ({ type: "CLEAR_VIDEOGAME_DETAIL" });
 // };

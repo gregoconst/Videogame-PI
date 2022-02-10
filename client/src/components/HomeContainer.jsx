@@ -7,6 +7,7 @@ import { Cards } from "./Cards";
 import { Pages } from "./Pages";
 import { Filter } from './Filter';
 import { setVideogamesOrder, setVideogamesRating, setVideogamesGenres, setVideogamesOrigin } from './../actions/index';
+import { NavBar } from './NavBar';
 export default function Home() {
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames);
@@ -15,8 +16,10 @@ export default function Home() {
     dispatch(getVideogames());
     dispatch(getVideogameGenres());
   }, []);
-  ///// FILTER ///////
+  console.log(getVideogameGenres(), "generos cargadossss")
+  ///// FILTER & ORDERS ///////
   const [order, setOrder] = useState("")
+  
   const handleChangeAlf = (e) =>{
     dispatch(setVideogamesOrder(e.target.value))
     setOrder(e.target.value)
@@ -35,21 +38,39 @@ export default function Home() {
     dispatch(setVideogamesOrigin(e.target.value))
     setOrder(e.target.value)
   }
-  ////////////////////
+///// FILTER & ORDERS ///////
  ////// PAGINADO ////////
   const [pagina, setPagina] = useState(1);
   const [juegosPorPagina, setJuegosPorPagina] = useState(15);
   const maxrender = videogames.length / juegosPorPagina;
- ////////////////////////////////
+  ////// PAGINADO ////////
   if (!videogames.length) {
     return (
-      <div>cargandooOOooOo</div>
+      <div>
+        <div>
+          <NavBar/>
+        </div>
+        <div>
+        <Filter handleChangeAlf={handleChangeAlf} handleChangeRat={handleChangeRat} handleChangeGen={handleChangeGen} handleChangeOrigin={handleChangeOrigin}/>
+        </div>
+        <div>
+        <Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
+        </div>
+        cargandooOOooOo
+      </div>
     )
 }
   return (
     <div>
+      <div>
+      <NavBar/>
+      </div>
+      <div>
       <Filter handleChangeAlf={handleChangeAlf} handleChangeRat={handleChangeRat} handleChangeGen={handleChangeGen} handleChangeOrigin={handleChangeOrigin}/>
+      </div>
+      <div>
       <Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
+      </div>
       {videogames &&
         videogames
           .slice(

@@ -144,6 +144,7 @@ router.get("/videogames/:id", async (req, res, next) => {
         released: videogameApi.released,
         rating: videogameApi.rating,
         platforms: videogameApi.platforms,
+        inDB: false,
       };
     }
     return res.status(200).json(juego);
@@ -175,9 +176,9 @@ router.get("/genres", async (req, res, next) => {
   }
 });
 
-router.post("/videogame", async (req, res, next) => {
+router.post("/videogames", async (req, res, next) => {
   console.log(req.body)
-  const { name, description, released, rating, platforms, genres } = req.body;
+  const { name, description, released, rating, platforms, genres, img } = req.body;
   if (!name || !description || !platforms){
     return res.status(404).send('Necessary parameters not found');
 }
@@ -188,6 +189,7 @@ router.post("/videogame", async (req, res, next) => {
       released,
       rating,
       platforms,
+      img,
     });
     console.log(typeof genres)
         if (typeof genres === 'number'){
@@ -196,6 +198,7 @@ router.post("/videogame", async (req, res, next) => {
         else{
           await nuevoJuego.addGenre(genres[0], {through:'game_genre'})
           await nuevoJuego.addGenre(genres[1], {through:'game_genre'})
+          await nuevoJuego.addGenre(genres[2], {through:'game_genre'})
         }
     // const GenreDB = await Genre.findAll({
     //   where: { name: genres },

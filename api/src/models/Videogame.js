@@ -19,11 +19,10 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     released: {
-      type: DataTypes.DATEONLY,
-      defaultValue: DataTypes.NOW,
+      type: DataTypes.STRING,
     },
     rating: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
     },
     background_image: {
       type: DataTypes.TEXT,
