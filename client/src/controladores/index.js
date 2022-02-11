@@ -22,3 +22,25 @@ export const GetVideogameOrigin = (origin, array) => {
 			return array;
 	}
 };
+
+export const validateErrors = (dataForm) => {
+    let errors = {};
+    if (!dataForm.name) {
+      errors.name = "Each game must have a Name!";
+    } else if (!dataForm.img) {
+      errors.img = "Image must have a valid Link.";
+    } else if (!dataForm.description || dataForm.lenght > 3) {
+      errors.description = "Description must be present...";
+    } else if (!dataForm.released) {
+      errors.released = "Game must have a release date";
+    } else if (
+      !dataForm.rating ||
+      dataForm.rating === 0 ||
+      dataForm.rating === "" ||
+      dataForm.rating < 1 ||
+      dataForm.rating >= 5
+    ) {
+      errors.rating = "Game Rating must be from 1 to 5 points.";
+    }
+    return errors;
+  }

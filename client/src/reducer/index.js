@@ -3,9 +3,11 @@
 const initialState = {
   videogames: [],
   videogamesList: [],
-  videogamesDetail: [],
   videogamesGenres: [],
+  allGenres: [],
+  filteredVideogames: [],
   platforms: [],
+  videogamesDetail: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -14,11 +16,14 @@ function rootReducer(state = initialState, action) {
       ...state,
       videogames: action.payload,
       videogamesList: action.payload,
+      // platforms: result,
+      filteredVideogames: action.payload,
     };
   } else if (action.type === "GET_GENRES") {
     return {
       ...state,
       videogamesGenres: action.payload,
+      allGenres: action.payload
     };
   } else if (action.type === "GET_VIDEOGAMES_DETAIL") {
     return {
@@ -34,7 +39,7 @@ function rootReducer(state = initialState, action) {
     if (action.payload === "asc") {
       return {
         ...state,
-        videogames: state.videogamesList?.slice().sort((a, b) => {
+        videogames: state.filteredVideogames?.slice().sort((a, b) => {
           //el slice me permite hacer una copia para no modificar mi array principal
           if (a.name > b.name) return 1;
           if (a.name < b.name) return -1;
@@ -44,7 +49,7 @@ function rootReducer(state = initialState, action) {
     } else if (action.payload === "desc") {
       return {
         ...state,
-        videogames: state.videogamesList?.slice().sort((a, b) => {
+        videogames: state.filteredVideogames?.slice().sort((a, b) => {
           if (a.name > b.name) return -1;
           if (a.name < b.name) return 1;
           return 0;
@@ -53,13 +58,13 @@ function rootReducer(state = initialState, action) {
     }
     return {
       ...state,
-      videogames: state.videogamesList,
+      videogames: state.filteredVideogames,
     };
   } else if (action.type === "SET_FILTER_VIDEOGAMES_RATING") {
     if (action.payload === "top") {
       return {
         ...state,
-        videogames: state.videogamesList?.slice().sort((a, b) => {
+        videogames: state.filteredVideogames?.slice().sort((a, b) => {
           //el slice me permite hacer una copia para no modificar mi array principal
           return b.rating - a.rating;
         }),
@@ -67,66 +72,65 @@ function rootReducer(state = initialState, action) {
     } else if (action.payload === "low") {
       return {
         ...state,
-        videogames: state.videogamesList?.slice().sort((a, b) => {
+        videogames: state.filteredVideogames?.slice().sort((a, b) => {
           return a.rating - b.rating;
         }),
       };
     }
     return {
       ...state,
-      videogames: state.videogamesList,
+      videogames: state.filteredVideogames,
     };
+
   } else if (action.type === "SET_FILTER_VIDEOGAMES_GENRES") {
     const genre = action.payload;
+    const filtrado = state.videogamesList?.filter((juego) => {
+      return juego.genres.includes(genre);
+    })
     if (genre === "All") return { ...state, videogames: state.videogamesList };
     else {
       return {
         ...state,
-        videogames: state.videogamesList?.filter((juego) => {
-          return juego.genres.includes(genre);
-        }),
+        videogames: filtrado,
+        filteredVideogames: filtrado,
       };
     }
+
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORIGIN") { //no pude hacerlo andar con if porque soy un tonto
-    const allVideogames = state.videogamesList;
-    const originFilter =
-      action.payload === "VideogamesDB"
-        ? allVideogames.filter((e) => e.inDB)
-        : allVideogames.filter((e) => !e.inDB);
-    return {
-      ...state,
-      videogames:
-        action.payload === "All"
-          ? {
-              ...state,
-              videogames: state.videogamesList,
-            }
-          : originFilter,
-    };
+    const allFilteredVideogames = state.filteredVideogames;
+    if (action.payload === "All"){
+      return {...state, videogames: state.videogamesList}
+    } else if(action.payload === "VideogamesDB") {
+      return {
+        ...state,
+        videogames: allFilteredVideogames.filter((origin)=> origin.inDB),
+        filteredVideogames: allFilteredVideogames.filter((origin)=> origin.inDB),
+      } 
+    } else {
+      return {
+        ...state,
+        videogames: allFilteredVideogames.filter((origin)=> !origin.inDB),
+        filteredVideogames: allFilteredVideogames.filter((origin)=> !origin.inDB),
+      } 
+    }
   } else if (action.type === "POST_VIDEOGAME"){
     return {
       ...state,
     }
+  } else if (action.type === "GET_PLATFORMS"){
+    return {
+      ...state,
+      platforms: action.payload,
+    }
+  } else if (action.payload === "CLEAR_VIDEOGAME_DETAIL"){
+    return {
+      ...state,
+      videogamesDetail: [],
+      filteredVideogames: []
+    }
   }
   return state;
-  // if (action.payload === "VideogamesDB") {
-  //     return {
-  //       ...state,
-  //       videogames: state.videogamesList?.filter((juego) => {
-  //         return juego.InDB === true;
-  //       }),
-  //     };
-  //   } else if (action.payload === "RawgAPI") {
-  //     console.log(action.payload, "holaaaaaaaaaaaaa");
-  //     return {
-  //       ...state,
-  //       videogames: state.videogamesList?.filter((juego) => {
-  //         return juego.InDB === false;
-  //       }),
-  //     };
-  //   } else {
-  //     return { ...state };
-  //   }
+  
 }
 
 export default rootReducer;

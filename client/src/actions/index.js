@@ -11,6 +11,16 @@ export const getVideogames = () => async (dispatch) => {
   }
 };
 
+export const getVideogameSearchName = (name) => async (dispatch) => {
+  try {
+    const resp = await axios.get(`${VIDEOGAMES_NAME}${name}`);
+    return dispatch({ type: "GET_VIDEOGAMES_NAME", payload: resp.data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "GET_VIDEOGAMES_NAME", payload: [] });
+  }
+};
+
 export const getVideogameGenres = () => async (dispatch) => {
   try {
     const resp = await axios.get(GENRES);
@@ -30,15 +40,6 @@ export const getVideogameDetail = (id) => async (dispatch) => {
   }
 };
 
-export const getVideogameSearchName = (name) => async (dispatch) => {
-  try {
-    const resp = await axios.get(`${VIDEOGAMES_NAME}${name}`);
-    return dispatch({ type: "GET_VIDEOGAMES_NAME", payload: resp.data });
-  } catch (error) {
-    console.log(error);
-    dispatch({ type: "GET_VIDEOGAMES_NAME", payload: [] });
-  }
-};
 
 export const setVideogamesOrder = (order) => {
   return {
@@ -52,12 +53,6 @@ export function setVideogamesOrigin(origin) {
     payload: origin,
   };
 }
-// export const setVideogamesOrigin = (origin) => {
-//   return {
-//     type: "FILTER_VIDEOGAMES_ORIGIN",
-//     payload: origin,
-//   };
-// };
 
 export const setVideogamesGenres = (genre) => {
   return {
@@ -73,35 +68,27 @@ export const setVideogamesRating = (rating) => {
   };
 };
 
-export const createVideogames = async (payload) => {
+export function createVideogames(dataForm) {
+  return async function () {
+    const infoGame = await axios.post(
+      VIDEOGAMES,
+      dataForm
+    );
+
+    return infoGame;
+  };
+}
+
+export const getPlatforms = () => async (dispatch) => {
   try {
-    const resp = await axios.post(VIDEOGAMES, payload);
-    return resp
+    const resp = await axios.get("http://localhost:3001/videogamesplatforms");
+    return dispatch({ type: "GET_PLATFORMS", payload: resp.data });
   } catch (error) {
     console.log(error);
   }
 };
 
-// export const getPlatforms = () => {
-// 	return async (dispatch) => {
-// 		try {
-// 			const response = await api.get('/videogames');
-// 			const allPlatformsRaw = [];
-// 			response.data.forEach((game) => {
-// 				game.platforms.forEach((platform) => {
-// 					allPlatformsRaw.push(platform);
-// 				});
-// 			});
-// 			let hash = {};
-// 			const allPlatforms = allPlatformsRaw.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+export const clearVideogameDetail = () => (dispatch) => {
+	dispatch({type: 'CLEAR_VIDEOGAME_DETAIL'});
+};
 
-// 			dispatch((allPlatforms))
-
-// 		} catch (error) {
-// 			console.log(error);
-// 		}
-// 	};
-// };
-// export const clearVideogameDetail = () => {
-//   ({ type: "CLEAR_VIDEOGAME_DETAIL" });
-// };
