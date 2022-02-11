@@ -1,4 +1,5 @@
 import axios from "axios";
+import plataformas from "../utils/platforms.json"
 
 import { VIDEOGAMES, GENRES, VIDEOGAMES_NAME } from "../utils/backroutes.js";
 
@@ -79,14 +80,23 @@ export function createVideogames(dataForm) {
   };
 }
 
-export const getPlatforms = () => async (dispatch) => {
-  try {
-    const resp = await axios.get("http://localhost:3001/videogamesplatforms");
-    return dispatch({ type: "GET_PLATFORMS", payload: resp.data });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const getPlatforms = () => async (dispatch) => {
+//   // try {
+//   //   const resp = await axios.get("http://localhost:3001/videogamesplatforms");
+//   //   return dispatch({ type: "GET_PLATFORMS", payload: resp.data });
+//   // } catch (error) {
+//   //   console.log(error);
+//   // }
+
+//   try {
+//     let platformsRaw = plataformas.map(e => e.name)
+//     console.log(platformsRaw);
+//     return dispatch({type: "GET_PLATFORMS", payload: platformsRaw.name})
+    
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const clearVideogameDetail = () => (dispatch) => {
 	dispatch({type: 'CLEAR_VIDEOGAME_DETAIL'});

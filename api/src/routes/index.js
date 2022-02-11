@@ -32,7 +32,12 @@ const ObtenerPlatforms = async () => {
   // console.log(lista);
   let platforms = lista?.map((element) => {
     return {
-      platforms: element.platforms?.map((plat) => plat.platform.name),
+      platforms: element.platforms?.map((plat) => {
+        return {
+         name: plat.platform.name,
+          id: plat.platform.id
+        }
+      }),
     };
   });
   let allPlatforms = [];
@@ -135,37 +140,74 @@ router.get("/genres", async (req, res, next) => {
   }
 });
 
-router.post("/videogames", async (req, res, next) => {
-  // console.log(req.body);
-  let { name, description, released, rating, platforms, genres, background_image } =
-    req.body;
-  if (!name || !description || !platforms) {
-    return res.status(404).send("Necessary parameters not found");
-  }
-  try {
-    let juegoCreado = await Videogame.create({
-      name,
-      description,
-      background_image,
-      released,
-      rating,
-    });
-    let generoDB = await Genre.findAll({
-      where: { name: genres },
-    });
-    let platformaDB = await Platform.findAll({
-      where: {name: platforms}
-  });
-    await juegoCreado.addGenre(generoDB);
-    await juegoCreado.addGenre(platformaDB);
+router.post('/videogames', async(req, res) => {
 
-    return res
-      .status(200)
-      .json(juegoCreado);
+  try {
+      
+      let {
+          name, description, background_image, released,
+          rating, created_inDB, platforms, genres
+      } = req.body;
+
+      let vGameCreated = await Videogame.create({
+          name, description, background_image,
+          released, rating, created_inDB, platforms
+      });
+
+      let genreDB = await Genre.findAll({
+          where: {name: genres}
+      });
+
+      // let platformDB = await Platform.findAll({
+      //     where: {name: platforms}
+      // });
+
+      vGameCreated.addGenre(genreDB);
+      // vGameCreated.addPlatform(platformDB);
+
+      // console.log("soy vGameCreated >>>", vGameCreated);
+
+      res.status(200).json(vGameCreated)
+
   } catch (error) {
-    next(error);
+      console.log(error);
   }
+
 });
+
+
+// router.post("/videogames", async (req, res, next) => {
+//   // console.log(req.body);
+//   let { name, description, released, rating, platforms, genres, background_image, inDB } =
+//     req.body;
+//   if (!name || !description || !platforms) {
+//     return res.status(404).send("Necessary parameters not found");
+//   }
+//   try {
+//     let juegoCreado = await Videogame.create({
+//       name,
+//       description,
+//       background_image,
+//       released,
+//       rating,
+//       inDB,
+//     });
+//     let generoDB = await Genre.findAll({
+//       where: { name: genres },
+//     });
+//     let platformaDB = await Platform.findAll({
+//       where: {name: platforms}
+//   });
+//     await juegoCreado.addGenre(generoDB);
+//     await juegoCreado.addPlatform(platformaDB);
+
+//     return res
+//       .status(200)
+//       .json(juegoCreado);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 // {name, description, released, rating, platforms, genres}
 // var { name, description, released, rating, platforms, genres } = req.body;
 // console.log(req.body)

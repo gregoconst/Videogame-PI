@@ -23,7 +23,7 @@ function rootReducer(state = initialState, action) {
     return {
       ...state,
       videogamesGenres: action.payload,
-      allGenres: action.payload
+      allGenres: action.payload,
     };
   } else if (action.type === "GET_VIDEOGAMES_DETAIL") {
     return {
@@ -81,12 +81,11 @@ function rootReducer(state = initialState, action) {
       ...state,
       videogames: state.filteredVideogames,
     };
-
   } else if (action.type === "SET_FILTER_VIDEOGAMES_GENRES") {
     const genre = action.payload;
     const filtrado = state.videogamesList?.filter((juego) => {
       return juego.genres.includes(genre);
-    })
+    });
     if (genre === "All") return { ...state, videogames: state.videogamesList };
     else {
       return {
@@ -95,42 +94,40 @@ function rootReducer(state = initialState, action) {
         filteredVideogames: filtrado,
       };
     }
-
-  } else if (action.type === "SET_FILTER_VIDEOGAMES_ORIGIN") { //no pude hacerlo andar con if porque soy un tonto
+  } else if (action.type === "SET_FILTER_VIDEOGAMES_ORIGIN") {
+    //no pude hacerlo andar con if porque soy un tonto
     const allFilteredVideogames = state.filteredVideogames;
-    if (action.payload === "All"){
-      return {...state, videogames: state.videogamesList}
-    } else if(action.payload === "VideogamesDB") {
+    if (action.payload === "All") {
+      return { ...state, videogames: state.videogamesList };
+    } else if (action.payload === "VideogamesDB") {
       return {
         ...state,
-        videogames: allFilteredVideogames.filter((origin)=> origin.inDB),
-        filteredVideogames: allFilteredVideogames.filter((origin)=> origin.inDB),
-      } 
+        videogames: allFilteredVideogames.filter((origin) => origin.inDB),
+        filteredVideogames: allFilteredVideogames.filter(
+          (origin) => origin.inDB
+        ),
+      };
     } else {
       return {
         ...state,
-        videogames: allFilteredVideogames.filter((origin)=> !origin.inDB),
-        filteredVideogames: allFilteredVideogames.filter((origin)=> !origin.inDB),
-      } 
+        videogames: allFilteredVideogames.filter((origin) => !origin.inDB),
+        filteredVideogames: allFilteredVideogames.filter(
+          (origin) => !origin.inDB
+        ),
+      };
     }
-  } else if (action.type === "POST_VIDEOGAME"){
+  } else if (action.type === "POST_VIDEOGAME") {
     return {
       ...state,
-    }
-  } else if (action.type === "GET_PLATFORMS"){
-    return {
-      ...state,
-      platforms: action.payload,
-    }
-  } else if (action.payload === "CLEAR_VIDEOGAME_DETAIL"){
+    };
+  } else if (action.payload === "CLEAR_VIDEOGAME_DETAIL") {
     return {
       ...state,
       videogamesDetail: [],
-      filteredVideogames: []
-    }
+      filteredVideogames: [],
+    };
   }
   return state;
-  
 }
 
 export default rootReducer;

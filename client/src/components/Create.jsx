@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   createVideogames,
-  getPlatforms,
   getVideogameGenres,
 } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { Backbutton } from "./Backbutton";
 // import { NavBar } from "./NavBar";
+import plataformas from '../utils/platforms.json'
 export const Create = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -25,14 +25,15 @@ export const Create = () => {
 
   useEffect(() => {
     dispatch(getVideogameGenres());
-    dispatch(getPlatforms());
   }, [dispatch]);
 
   const generos = useSelector((state) => state.videogamesGenres);
-  const platforms = useSelector((state) => state.platforms);
-  console.log(platforms);
+  let plataforms = plataformas?.map(e => e.name)
+  
+  console.log(plataforms);
+  // console.log(platforms);
   /////////VALIDACION///////////
-  function validateErrors(input) {
+  function validateErrors(dataForm) {
     let errors = {};
     if (!dataForm.name) {
       errors.name = "Each game must have a Name!";
@@ -75,8 +76,8 @@ export const Create = () => {
         description: "",
         released: "",
         rating: "",
-        platforms: [],
         genres: [],
+        platforms: [],
       });
       history("/home");
     } else alert("Debes completar los campos obligatorios");
@@ -105,13 +106,13 @@ export const Create = () => {
     e.preventDefault();
     setdataForm({
       genres: dataForm.genres.filter((gen) => gen !== e.target.value),
-      platforms: dataForm.platforms.filter((plat) => plat !== e.target.value),
+      platformas: dataForm.platforms.filter((plat) => plat !== e.target.value),
     });
   };
 
   const handleInput = (e) => {
     setdataForm({ ...dataForm, [e.target.name]: e.target.value });
-    console.log(dataForm);
+    // console.log(dataForm);
 
     setErrors(
       //valido los datos de los input
@@ -128,6 +129,7 @@ export const Create = () => {
       ...dataForm,
       platforms: [...dataForm.platforms, e.target.value],
     });
+    console.log(dataForm)
   };
 
   const handleGenreSelected = (e) => {
@@ -136,6 +138,7 @@ export const Create = () => {
       ...dataForm,
       genres: [...dataForm.genres, e.target.value],
     });
+    console.log(dataForm)
   };
 
   // const handleCheckboxGen = (genre) => {
@@ -238,8 +241,8 @@ export const Create = () => {
           </select>
         </div>
         <div className="btn-genres">
-          {dataForm.genres.map((gen) => (
-            <div key={KeyGenerator()}>
+          {dataForm.genres.map((gen,i) => (
+            <div key={i}>
               <button
                 onClick={handleDelete}
                 className="btn-destroy-genre"
@@ -255,16 +258,18 @@ export const Create = () => {
 
         <div>
           <label>Selecciona las plataformas:</label>
-          <select onChange={handleGenreSelected} className="input-form">
+          <select onChange={handlePlatformSelected} className="input-form">
             <option name="platforms" key="keyPlat">
               Select Platforms
             </option>
-            {platforms &&
-              platforms.map((plat) => (
-                <option key={plat.id} value={plat}>
+            {plataforms &&
+              plataforms.map((plat,i) => (
+                <option key={i} value={plat}>
                   {plat}
                 </option>
               ))}
+              {/* {console.log(platforms.name,"soy plat.name")}
+                  {console.log(platforms.id,"soy plat.id")} */}
           </select>
         </div>
         <div className="btn-genres">
