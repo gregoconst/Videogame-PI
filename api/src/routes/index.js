@@ -155,7 +155,7 @@ router.post("/videogames", async (req, res) => {
       name,
       description,
       background_image,
-      released,
+      released, 
       rating,
       inDB,
       platforms,
