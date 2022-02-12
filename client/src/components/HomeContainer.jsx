@@ -27,7 +27,7 @@ export default function Home() {
   }, [dispatch]);
   console.log(getVideogameGenres(), "generos cargadossss");
   console.log(getVideogames());
-  ///// FILTER & ORDERS ///////
+  ///// FILTER & ORDERS & HANDLES ///////
   const [order, setOrder] = useState("");
 
   const handleChangeAlf = (e) => {
@@ -48,6 +48,11 @@ export default function Home() {
     dispatch(setVideogamesOrigin(e.target.value));
     setOrder(e.target.value);
   };
+
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    dispatch(getVideogames());
+}
   ///// FILTER & ORDERS ///////
   ////// PAGINADO ////////
   const [pagina, setPagina] = useState(1);
@@ -83,6 +88,9 @@ export default function Home() {
     <div className="home-container">
       <div>
         <NavBar />
+      </div>
+      <div>
+        <button onClick={e => handleOnClick(e)}>Recargar Juegos</button>
       </div>
       <div>
         <Filter

@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import styles from "./styles/Landing.module.css";
+import "./styles/Landing.css";
+
 
 export default function Landing() {
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.button}>
+      <div className="container">
+        <div className="button">
           <Link to={"/home"}>
             <button>Enter</button>
           </Link>
@@ -14,11 +15,3 @@ export default function Landing() {
     </>
   );
 }
-
-// export default function Landing() {
-//     return (
-//       <div>
-//         <h2>soy Landing</h2>
-//       </div>
-//     );
-//   }

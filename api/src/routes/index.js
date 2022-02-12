@@ -150,12 +150,14 @@ router.post("/videogames", async (req, res) => {
       platforms,
       genres,
     } = req.body;
-
+    if (!name || !description || !platforms) {
+      return res.status(404).send("Necessary parameters not found");
+    }
     let vGameCreated = await Videogame.create({
       name,
       description,
       background_image,
-      released, 
+      released,
       rating,
       inDB,
       platforms,
