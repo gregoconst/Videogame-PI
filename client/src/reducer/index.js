@@ -82,18 +82,46 @@ function rootReducer(state = initialState, action) {
       videogames: state.filteredVideogames,
     };
   } else if (action.type === "SET_FILTER_VIDEOGAMES_GENRES") {
-    const genre = action.payload;
-    const filtrado = state.videogamesList?.filter((juego) => {
-      return juego.genres.includes(genre);
+    const genresAPI = [...state.videogamesList];
+
+    const filteredGenresAPI =
+      action.payload === "All"
+        ? genresAPI
+        : genresAPI.filter((gen) => gen.Genres?.includes(action.payload));
+    console.log("soy filteredGenresAPI", filteredGenresAPI);
+
+    let filteredGenDB = genresAPI?.filter((x) => {
+      // Revisamos el array.
+      for (let i = 0; i < x.genres?.length; i++) {
+        if (x.genres[i]?.name.includes(action.payload)) {
+          return true;
+        }
+      }
+      // Si no lo encontramos en el array no hay nada
+      return false;
     });
-    if (genre === "All") return { ...state, videogames: state.videogamesList };
-    else {
-      return {
-        ...state,
-        videogames: filtrado,
-        filteredVideogames: filtrado,
-      };
-    }
+    console.log("soy filteredGenDB", filteredGenDB);
+
+    const concatGen = filteredGenresAPI.concat(filteredGenDB);
+
+    console.log("soy action.payload >>> ", action.payload);
+
+    return {
+      ...state,
+      videogames: concatGen,
+    };
+    // const genre = action.payload;
+    // const filtrado = state.videogamesList?.filter((juego) => {
+    //   return juego.genres.includes(genre);
+    // });
+    // if (genre === "All") return { ...state, videogames: state.videogamesList };
+    // else {
+    //   return {
+    //     ...state,
+    //     videogames: filtrado,
+    //     filteredVideogames: filtrado,
+    //   };
+    // }
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORIGIN") {
     //no pude hacerlo andar con if porque soy un tonto
     const allFilteredVideogames = state.filteredVideogames;

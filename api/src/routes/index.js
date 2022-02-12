@@ -34,9 +34,9 @@ const ObtenerPlatforms = async () => {
     return {
       platforms: element.platforms?.map((plat) => {
         return {
-         name: plat.platform.name,
-          id: plat.platform.id
-        }
+          name: plat.platform.name,
+          id: plat.platform.id,
+        };
       }),
     };
   });
@@ -69,9 +69,7 @@ const ObtenerPlatforms = async () => {
 router.get("/videogamesplatforms", async (req, res, next) => {
   try {
     const platforms = await ObtenerPlatforms();
-    platforms.forEach(async (p)=>{
-      
-    })
+    platforms.forEach(async (p) => {});
     return res.send(platforms);
   } catch (error) {
     console.log(error);
@@ -140,41 +138,42 @@ router.get("/genres", async (req, res, next) => {
   }
 });
 
-router.post('/videogames', async(req, res) => {
-
+router.post("/videogames", async (req, res) => {
   try {
-      
-      let {
-          name, description, background_image, released,
-          rating, created_inDB, platforms, genres
-      } = req.body;
+    let {
+      name,
+      description,
+      background_image,
+      released,
+      rating,
+      inDB,
+      platforms,
+      genres,
+    } = req.body;
 
-      let vGameCreated = await Videogame.create({
-          name, description, background_image,
-          released, rating, created_inDB, platforms
-      });
+    let vGameCreated = await Videogame.create({
+      name,
+      description,
+      background_image,
+      released,
+      rating,
+      inDB,
+      platforms,
+    });
 
-      let genreDB = await Genre.findAll({
-          where: {name: genres}
-      });
+    let genreDB = await Genre.findAll({
+      where: { name: genres },
+    });
+    vGameCreated.addGenre(genreDB);
+    // vGameCreated.addPlatform(platformDB);
 
-      // let platformDB = await Platform.findAll({
-      //     where: {name: platforms}
-      // });
+    // console.log("soy vGameCreated >>>", vGameCreated);
 
-      vGameCreated.addGenre(genreDB);
-      // vGameCreated.addPlatform(platformDB);
-
-      // console.log("soy vGameCreated >>>", vGameCreated);
-
-      res.status(200).json(vGameCreated)
-
+    res.status(200).json(vGameCreated);
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
-
 });
-
 
 // router.post("/videogames", async (req, res, next) => {
 //   // console.log(req.body);

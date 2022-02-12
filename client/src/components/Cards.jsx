@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./styles/Cards.css";
 export const Cards = ({ id, name, genres, background_image, rating }) => {
+  console.log(genres);
   return (
     <div className="card-container">
       <div key={id} className='card'>

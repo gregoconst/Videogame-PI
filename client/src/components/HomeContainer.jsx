@@ -54,10 +54,10 @@ export default function Home() {
   const [juegosPorPagina, setJuegosPorPagina] = useState(15);
   const maxrender = videogames.length / juegosPorPagina;
   ////// PAGINADO ////////
-  console.log(videogames[0] ? videogames : videogames[0],"que onda");
+  // console.log(videogames[0] ? videogames : videogames[0],"que onda");
 
-  let mapeo = videogames?.filter((e) => (e.genres)).map(f => f.name)
-  console.log(mapeo);
+  // let mapeo = videogames?.filter(e => e.inDB === true).map(f => f.genres.name)
+  // console.log(mapeo,"holaaaaaaaaa soy mapeooo");
   if (!videogames.length) {
     return (
       <div>
@@ -112,12 +112,7 @@ export default function Home() {
                     id={juego.id}
                     name={juego.name}
                     genres={
-                      !videogames[0].inDB
-                        ? juego.Genres.join(" - ") //esto son los juegos de api
-                        : videogames?.filter((e) => (e.genres)).map(f => f.name).join(" - ") //estos son los juegos de db
-                            
-                            
-                    } //Genres es para generos de los juegos en API!!!!!!!!!
+                      juego.genres?.map((g) => (g.name)).join(' - ') ||  juego.Genres?.join(' - ')} //Genres es para generos de los juegos en API!!!!!!!!!
                     background_image={juego.background_image}
                     rating={juego.rating}
                   />
