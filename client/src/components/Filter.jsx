@@ -2,11 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Filter = ({handleChangeAlf, handleChangeRat, handleChangeGen, handleChangeOrigin}) => {
-  const dispatch = useDispatch();
   const videogamesGenres = useSelector((state) => state.videogamesGenres);
   return (
     <div className="div_filters">
-      <label className="label_fil">Filters & Orders</label>
       <select onChange={(e)=>{handleChangeAlf(e)}} name="Orden alfabético">
         <option value="All">Orden alfabético</option>
         <option value="asc">A-Z</option>
@@ -34,13 +32,4 @@ export const Filter = ({handleChangeAlf, handleChangeRat, handleChangeGen, handl
     </div>
   );
 };
-// return <div>
-//     <select name="order">
-//       <option value="all">Orden alfabético</option>
-//       <option value="asc">A-Z</option>
-//       <option value="desc">Z-A</option>
-//     </select>
-//     <select name="">
-//       <option value=""></option>
-//     </select>
-// </div>;
+

@@ -1,8 +1,9 @@
-const axios = require('axios');
-const { Videogame, Genre } = require('../db');
+const axios = require("axios");
+const { Videogame, Genre } = require("../db");
 const { API_KEY } = process.env;
 
 normalizeDataDb = (videogamesDb) => {
+  //////////////DEPRECATED
   const genresNormalized = videogamesDb.dataValues.genres?.map(
     (gen) => gen.name
   );
@@ -54,7 +55,6 @@ const getApiInfo = async () => {
   } catch (error) {
     console.log(error);
   }
-  
 };
 
 const getDbIinfo = async () => {
@@ -68,6 +68,35 @@ const getDbIinfo = async () => {
         },
       },
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getQueryGames = async () => {
+  const { name } = req.query;
+  let gamesdatabase = await getDbIinfo();
+  try {
+    const videogamesList = await Promise.all([
+      axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`),
+    ]);
+    let juegosquery = videogamesList[0].data.results.map((element) => {
+      return {
+        id: element.id,
+        name: element.name,
+        background_image: element.background_image,
+        rating: element.rating,
+        released: element.released,
+        platforms: element.platforms?.map((plat) => plat.platform.name),
+        Genres: element.genres?.map((gen) => gen.name),
+        inDB: false,
+      };
+    })
+    let gamesdatabasename = await gamesdatabase.filter((el) =>
+      el.name.toLowerCase().includes(name.toLowerCase())
+    );
+    let listaCompleta = gamesdatabasename.concat(juegosquery);
+    return listaCompleta;
   } catch (error) {
     console.log(error);
   }

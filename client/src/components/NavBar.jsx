@@ -6,11 +6,6 @@ export const NavBar = () => {
   return (
     <header className="navbar">
         <div>
-        <NavLink exact to="/home">
-            {/* <img id="HenryVideogames" src={home} width="220" height="50" className="d-inline-block align-top" alt="" /> */}
-        </NavLink>
-        </div>
-        <div>
             <SearchBar/>
         </div>
         <nav>

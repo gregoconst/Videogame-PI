@@ -8,6 +8,7 @@ const initialState = {
   filteredVideogames: [],
   platforms: [],
   videogamesDetail: [],
+  spinnerLoader: true
 };
 
 function rootReducer(state = initialState, action) {
@@ -18,6 +19,7 @@ function rootReducer(state = initialState, action) {
       videogamesList: action.payload,
       // platforms: result,
       filteredVideogames: action.payload,
+      spinnerLoader: false,
     };
   } else if (action.type === "GET_GENRES") {
     return {
@@ -124,25 +126,22 @@ function rootReducer(state = initialState, action) {
     // }
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORIGIN") {
     //no pude hacerlo andar con if porque soy un tonto
-    const allFilteredVideogames = state.filteredVideogames;
-    if (action.payload === "All") {
-      return { ...state, videogames: state.videogamesList };
-    } else if (action.payload === "VideogamesDB") {
+    if (action.payload === "VideogamesDB") {
       return {
         ...state,
-        videogames: allFilteredVideogames.filter((origin) => origin.inDB),
-        filteredVideogames: allFilteredVideogames.filter(
-          (origin) => origin.inDB
-        ),
+        videogames: state.filteredVideogames?.filter((origin) => {
+          return origin.inDB === true;
+        }),
+      };
+    } else if (action.payload === "RawgAPI") {
+      return {
+        ...state,
+        videogames: state.filteredVideogames?.filter((origin) => {
+          return origin.inDB === false;
+        }),
       };
     } else {
-      return {
-        ...state,
-        videogames: allFilteredVideogames.filter((origin) => !origin.inDB),
-        filteredVideogames: allFilteredVideogames.filter(
-          (origin) => !origin.inDB
-        ),
-      };
+      return { ...state, videogames: state.filteredVideogames };
     }
   } else if (action.type === "POST_VIDEOGAME") {
     return {
@@ -154,6 +153,16 @@ function rootReducer(state = initialState, action) {
       videogamesDetail: [],
       filteredVideogames: [],
     };
+  } else if (action.payload === "LOADER_TRUE"){
+    return {
+      ...state,
+      spinnerLoader: true,
+    }
+  } else if (action.payload === "LOADER_FALSE"){
+    return {
+      ...state,
+      spinnerLoader: false,
+    }
   }
   return state;
 }

@@ -5,12 +5,12 @@ import "./styles/Landing.css";
 export default function Landing() {
   return (
     <>
-      <div className="container">
-        <div className="button">
+      <div className="background">
+        {/* <div className="button"> */}
           <Link to={"/home"}>
-            <button>Enter</button>
+            <div className="homeBtn"></div>
           </Link>
-        </div>
+        {/* </div> */}
       </div>
     </>
   );

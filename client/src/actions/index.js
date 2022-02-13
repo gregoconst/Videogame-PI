@@ -102,3 +102,14 @@ export const clearVideogameDetail = () => (dispatch) => {
 	dispatch({type: 'CLEAR_VIDEOGAME_DETAIL'});
 };
 
+export function setLoaderTrue() {
+  return {
+    type: "LOADER_TRUE",
+  };
+}
+
+export function setLoaderFalse() {
+  return {
+    type: "LOADER_FALSE",
+  };
+}

@@ -12,21 +12,25 @@ import {
   setVideogamesOrigin,
   getVideogameGenres,
   getVideogames,
+  setLoaderTrue,
 } from "./../actions/index";
 import { NavBar } from "./NavBar";
 import "./styles/Home.css";
+import spinner from "../utils/loading.gif"
 export default function Home() {
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames);
-  // const videogamesList = useSelector((state) => state.videogamesList);
+  const spinnerLoader = useSelector((state) => state.spinnerLoader);
   useEffect(() => {
     dispatch(getVideogameGenres());
-  }, [dispatch]);
-  useEffect(() => {
+    dispatch(setLoaderTrue());
     dispatch(getVideogames());
   }, [dispatch]);
-  console.log(getVideogameGenres(), "generos cargadossss");
-  console.log(getVideogames());
+  // useEffect(() => {
+  //   dispatch(getVideogames());
+  // }, [dispatch]);
+  // console.log(getVideogameGenres(), "generos cargadossss");
+  // console.log(getVideogames());
   ///// FILTER & ORDERS & HANDLES ///////
   const [order, setOrder] = useState("");
 
@@ -65,7 +69,7 @@ export default function Home() {
   // console.log(mapeo,"holaaaaaaaaa soy mapeooo");
   if (!videogames.length) {
     return (
-      <div>
+      <div className="loading">
         <div>
           <NavBar />
         </div>
@@ -80,7 +84,7 @@ export default function Home() {
         <div>
           <Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
         </div>
-        cargandooOOooOo
+        <img src={spinner} alt="...loading" className="spinnerStyle" />
       </div>
     );
   }
@@ -120,7 +124,7 @@ export default function Home() {
                     id={juego.id}
                     name={juego.name}
                     genres={
-                      juego.genres?.map((g) => (g.name)).join(' - ') ||  juego.Genres?.join(' - ')} //Genres es para generos de los juegos en API!!!!!!!!!
+                      juego.genres?.map((g) => (g.name)).join(' - ') || juego.Genres?.join(' - ')} //Genres es para generos de los juegos en API!!!!!!!!!
                     background_image={juego.background_image}
                     rating={juego.rating}
                   />

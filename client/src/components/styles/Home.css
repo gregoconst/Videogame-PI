@@ -1,8 +1,8 @@
 .home-container {
-  color: aliceblue;
+  color: black;
   height: 360vh;
   background-attachment: cover;
-  background-color: #242424;
+  background-color: black;
 }
 
 .card-container {
@@ -14,9 +14,25 @@
   grid-row-gap: 20px;
   justify-content: space-evenly;
   align-items: stretch;
+  background-color: black;
 }
 
 .card {
   border: solid rgba(230, 219, 219, 0.678) 1.5px;
   border-radius: 5%;
+  box-sizing: content-box;
+}
+
+/* .spinnerStyle {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+} */
+
+.loading {
+  display: flex;
+    flex-direction: column;
+    align-items: center;  
+    margin-bottom: 30px;
+    background-color: black;
 }

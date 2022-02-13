@@ -21,7 +21,7 @@ const ObtenerPlatforms = async () => {
   let lista = [];
   const videogamesList = await Promise.all([
     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`),
-    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2`),
+    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2`), //DEPRECATED
     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=3`),
     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=4`),
     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=5`),

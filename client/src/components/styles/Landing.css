@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .container {
-    background-image: url(https://img.wallpapersafari.com/desktop/1920/1080/87/15/x2peuw.jpg);
+    background-image: url("../../utils/home.jpg");
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -11,13 +11,62 @@
 }
 
 .button {
-    text-align: justify;
-    font-size: 3rem;
-    font-weight: bold;
+    font-family: 'Press Start 2P', cursive;
+    position: absolute;
+    display: flex;
+    height: 50px;
+    background-clip: border-box;
+    background: rgb(186,186,186);
+    background: linear-gradient(0deg, rgb(100, 100, 100) 0%, rgba(255,255,255,1) 51%, rgb(100, 100, 100) 100%);
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    align-items: center;
+    justify-content: center;
+    margin-left: 33%;
+    margin-top: 20%;
+    padding: 10px;
+    font-size: 50px ;
+    transition: 300ms;
+    cursor: pointer;
+    padding-bottom: 10;
+}
+/* .button:hover {
+    transform:scale(1.1);
+    background-clip: border-box;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(186,186,186,1) 0%, rgba(255,255,255,1) 51%, rgba(176,176,176,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+} */
+.button:active{
+    transform: scale(0.9);
 }
 
-.button p{
-    font-family: 'Press Start 2P', cursive;
-    text-decoration: none;
-    color: black;
+/*  */
+
+.background{
+    background-image: url("../../utils/home.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+
+.homeBtn{ 
+    background-image: url("../../utils/button.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 650px;
+    top: 130px;
+    transition: transform .5s ease-in-out; /* Spin animation */
+}
+
+.homeBtn:hover {
+    transform: rotate(720deg) scale(1.5);
 }

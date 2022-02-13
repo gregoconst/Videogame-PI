@@ -6,17 +6,17 @@ export const Cards = ({ id, name, genres, background_image, rating }) => {
   return (
     <div className="card-container">
       <div key={id} className='card'>
-      <NavLink to={`/home/detail/${id}`} className="linkID" />
-      <h3 className="card-name">{name}</h3>
-      <div className="genres-info">
-        Generos: &nbsp;
+        <img className='vg-img' src={background_image} width="200px" height="125px" alt='background' />
+        <NavLink to={`/home/detail/${id}`} className="linkID" />
+        <h3 className="card-name">{name}</h3>
+        <div className="genres-info">
+          Generos: &nbsp;
           {genres}
           <div className="rating-info">
-        <label style={{justifySelf:'center', position:'static', paddingBottom:'6px', paddingTop:'4px', margin:'1%'}}><u>Rating:</u></label>
-        <h4>{rating}</h4>
-    </div>
+            <label style={{ justifySelf: 'center', position: 'static', paddingBottom: '6px', paddingTop: '4px', margin: '1%' }}><u>Rating:</u></label>
+            <h4>{rating}</h4>
           </div>
-      <img className='vg-img' src={background_image} width="200px" height="125px" alt='background'/>
+        </div>
       </div>
     </div>
   );
