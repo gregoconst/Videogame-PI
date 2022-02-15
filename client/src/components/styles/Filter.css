@@ -1,0 +1,30 @@
+.div_filters {
+    margin-top: 15px;
+    display: flex;
+	justify-content: center;
+	background: transparent;
+	max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label_fil{
+	color: black;
+	font-size: 23px;
+}
+.div_filters select{
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgb(20 20 20 / 80%);
+    color: white;
+    background-color: #000000a3;
+    font-family: 'Teko', sans-serif;
+    font-size: 18px;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    border-radius: 6px;
+}
+.div_filters option {
+    color: black;
+    font-size: 16px;
+    background-color:#000000a3;
+}

@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import {
   createVideogames,
   getVideogameGenres,
+  clearVideogameState
 } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
-import { Backbutton } from "./Backbutton";
-// import { NavBar } from "./NavBar";
+import "./styles/Create.css";
+import { NavBar } from "./NavBar";
 import plataformas from '../utils/platforms.json'
 export const Create = () => {
   const dispatch = useDispatch();
@@ -24,14 +25,13 @@ export const Create = () => {
   });
 
   useEffect(() => {
+    dispatch(clearVideogameState())
     dispatch(getVideogameGenres());
   }, [dispatch]);
 
   const generos = useSelector((state) => state.videogamesGenres);
   let plataforms = plataformas?.map(e => e.name)
   
-  console.log(plataforms);
-  // console.log(platforms);
   /////////VALIDACION///////////
   function validateErrors(dataForm) {
     let errors = {};
@@ -80,7 +80,7 @@ export const Create = () => {
         platforms: [],
       });
       history("/home");
-    } else alert("Debes completar los campos obligatorios");
+    } else alert("Game must have a name, rating, release date, description, genres and platforms");
     // const cleanGenres = dataForm.genres.reduce((prev, actual) => {
     //   if (!prev.includes(actual)) {
     //     prev.push(actual);
@@ -172,11 +172,15 @@ export const Create = () => {
     return id++;
   }
   return (
+    <div className="gameover">
+    <NavBar />
+    <br />
+    <br />
+    <br />
     <div className="post-daleORC">
-      <Backbutton />
       <form onSubmit={handleOnSubmit}>
         <div>
-          <label>Name: </label>
+          <label className="button-54">Name:</label>&nbsp;&nbsp;
           <input
             className="input_form"
             onChange={handleInput}
@@ -186,8 +190,9 @@ export const Create = () => {
           />
           {errors.name && <p className="error"> {errors.name} </p>}
         </div>
+        <br />
         <div>
-          <label>URL Image:</label>
+          <label className="button-54">URL Image:</label>&nbsp;&nbsp;
           <input
             onChange={handleInput}
             type="url"
@@ -195,8 +200,9 @@ export const Create = () => {
             value={dataForm.img}
           />
         </div>
+        <br />
         <div>
-          <label>Release Date:</label>
+          <label className="button-54">Release Date:</label>&nbsp;&nbsp;
           <input
             onChange={handleInput}
             type="date"
@@ -207,8 +213,9 @@ export const Create = () => {
 
           {errors.released && <p className="error"> {errors.released} </p>}
         </div>
+        <br />
         <div>
-          <label>Description:</label>
+          <label className="button-54">Description:</label>&nbsp;&nbsp;
           <input
             onChange={handleInput}
             type="textarea"
@@ -216,8 +223,9 @@ export const Create = () => {
             value={dataForm.description}
           />
         </div>
+        <br />
         <div>
-          <label>Rating:</label>
+          <label className="button-54">Rating:</label>&nbsp;&nbsp;
           <input
             onChange={handleInput}
             type="number"
@@ -226,8 +234,9 @@ export const Create = () => {
           />
           {errors.rating && <p className="error"> {errors.rating} </p>}
         </div>
+        <br />
         <div>
-          <label>Selecciona los generos:</label>
+          <label className="button-54">Genres</label>&nbsp;&nbsp;
           <select onChange={handleGenreSelected} className="input-form">
             <option name="genres" key="keyGen">
               Select Genres
@@ -240,6 +249,7 @@ export const Create = () => {
               ))}
           </select>
         </div>
+        <br />
         <div className="btn-genres">
           {dataForm.genres.map((gen,i) => (
             <div key={i}>
@@ -257,7 +267,7 @@ export const Create = () => {
         <br />
 
         <div>
-          <label>Selecciona las plataformas:</label>
+          <label className="button-54">Platforms</label>&nbsp;&nbsp;
           <select onChange={handlePlatformSelected} className="input-form">
             <option name="platforms" key="keyPlat">
               Select Platforms
@@ -272,6 +282,7 @@ export const Create = () => {
                   {console.log(platforms.id,"soy plat.id")} */}
           </select>
         </div>
+        <br />
         <div className="btn-genres">
           {dataForm.platforms.map((plat) => (
             <div key={KeyGenerator()}>
@@ -287,65 +298,11 @@ export const Create = () => {
         </div>
 
         <br />
-        <button type="submit" value="create_game">
+        <button className="button-54" type="submit" value="create_game">
           CREAR
         </button>
       </form>
     </div>
+    </div>
   );
 };
-// return (
-//   <div className='div_g'>
-//     <NavBar />
-//     <h2><u>Hora de cargar tu juego:</u></h2><br />
-//     <form action="">
-//       <div className="div_name">
-//         <label>Nombre:</label>
-//         <input type="text"
-//         value= {dataForm.name}
-//         name= "name"
-//         />
-//       </div>
-//       <div className="div_description">
-//         <label>Description:</label>
-//         <input type="text"
-//         value= {dataForm.description}
-//         name="description"/>
-//       </div>
-//       <div className="div_released">
-//         <label>Released:</label>
-//         <input type="text"
-//         value= {dataForm.rating}
-//         name="released"/>
-//       </div>
-//       <div className="div_rating">
-//         <label>Rating:</label>
-//         <input type="text"
-//         value= {dataForm.rating}
-//         name="rating"/>
-//       </div>
-//       <div className="div_platforms">
-//         <label>Platforms:</label>
-//         <input type="text"
-//         value= {dataForm.rating}
-//         name="rating"/>
-//       </div>
-//     </form>
-//   </div>
-// );
-
-// export const Create = () => {
-//   const [data, setData] = {
-//     name: "",
-//     description: "",
-//     released: "",
-//     rating: "",
-//     platforms: [],
-//     genres: [],
-//     img: "",
-//   };
-//   useEffect(() => {
-//     dispatch(getVideogameGenres());
-//   }, []);
-//   return <div>holaaaaaaaaaaaaa</div>;
-// };

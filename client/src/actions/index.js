@@ -98,8 +98,8 @@ export function createVideogames(dataForm) {
 //   }
 // };
 
-export const clearVideogameDetail = () => (dispatch) => {
-	dispatch({type: 'CLEAR_VIDEOGAME_DETAIL'});
+export const clearVideogameState = () => (dispatch) => {
+	dispatch({type: 'CLEAR_VIDEOGAME_STATE'});
 };
 
 export function setLoaderTrue() {

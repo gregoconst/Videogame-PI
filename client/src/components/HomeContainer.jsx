@@ -25,7 +25,7 @@ export default function Home() {
     dispatch(getVideogameGenres());
     dispatch(setLoaderTrue());
     dispatch(getVideogames());
-  }, [dispatch]);
+  }, []);
   // useEffect(() => {
   //   dispatch(getVideogames());
   // }, [dispatch]);
@@ -90,12 +90,10 @@ export default function Home() {
   }
   return (
     <div className="home-container">
-      <div>
+      <div className="navbar-container">
         <NavBar />
       </div>
-      <div>
-        <button onClick={e => handleOnClick(e)}>Recargar Juegos</button>
-      </div>
+      
       <div>
         <Filter
           handleChangeAlf={handleChangeAlf}
@@ -104,8 +102,12 @@ export default function Home() {
           handleChangeOrigin={handleChangeOrigin}
         />
       </div>
+      <br />
       <div>
         <Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
+      </div>
+      <div>
+        <button className="button-54" onClick={e => handleOnClick(e)}>Recargar Juegos</button>
       </div>
       <div className="card-container">
         {videogames &&
@@ -116,8 +118,7 @@ export default function Home() {
             )
             .map((juego) => {
               return (
-                <div className="card">
-                <Link to={`/home/detail/${juego.id}`}>
+                <div className="card" key={juego.id}>
                   <Cards
                     // !videogames[0].inDB? juego.Genres.join(' - ') : videogames[0].genres.map((gen)=> (gen.name)).join(' - ')
                     key={juego.id}
@@ -128,7 +129,6 @@ export default function Home() {
                     background_image={juego.background_image}
                     rating={juego.rating}
                   />
-                </Link>
                 </div>
               );
             })}

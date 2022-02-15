@@ -4,7 +4,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const { Videogame, Genre, Platform } = require("../db");
 const { Op } = require("sequelize");
-const { normalizeDataDb, getAllGames } = require("./utils");
+const { normalizeDataDb, getAllGames, getQueryGames } = require("./utils");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -57,13 +57,6 @@ const ObtenerPlatforms = async () => {
 //   })
 // };
 
-// const todalaInfo = async () => {
-//   let DatosApi = await ObtenerApi();
-//   let DatosDb = await ObtenerDb();
-//   console.log(DatosApi);
-//   const datosCompletos = DatosApi.concat(DatosDb);
-//   return datosCompletos;
-// };
 
 ////////////////////////////////
 router.get("/videogamesplatforms", async (req, res, next) => {
@@ -81,13 +74,13 @@ router.get("/videogames", async (req, res) => {
   const name = req.query.name;
 
   let totalGames = await getAllGames();
-
   if (name) {
-    let gameQ = await totalGames.filter((game) =>
+    let gameQuery = await totalGames.filter((game) =>
       game.name.toLowerCase().includes(name.toLocaleLowerCase())
     );
-    gameQ.length
-      ? res.status(200).send(gameQ)
+    
+    gameQuery.length
+      ? res.status(200).send(gameQuery)
       : res.status(404).send("Videogame not found.");
   } else {
     res.status(200).send(totalGames);
@@ -153,8 +146,9 @@ router.post("/videogames", async (req, res) => {
     if (!name || !description || !platforms) {
       return res.status(404).send("Necessary parameters not found");
     }
+    const nameUpper = name.charAt(0).toUpperCase() + name.slice(1)
     let vGameCreated = await Videogame.create({
-      name,
+      name: nameUpper,
       description,
       background_image,
       released,

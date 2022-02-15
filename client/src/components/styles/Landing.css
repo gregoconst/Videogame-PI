@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .container {
-    background-image: url("../../utils/home.jpg");
+    background-image: url("../../utils/landingblanca.png");
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -10,7 +10,7 @@
     justify-content: flex-start;
 }
 
-.button {
+/* .button {
     font-family: 'Press Start 2P', cursive;
     position: absolute;
     display: flex;
@@ -30,7 +30,7 @@
     transition: 300ms;
     cursor: pointer;
     padding-bottom: 10;
-}
+} */
 /* .button:hover {
     transform:scale(1.1);
     background-clip: border-box;
@@ -46,7 +46,7 @@
 /*  */
 
 .background{
-    background-image: url("../../utils/home.jpg");
+    background-image: url("../../utils/landingblanca.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -62,8 +62,8 @@
     width: 70px;
     height: 70px;
     position: absolute;
-    left: 650px;
-    top: 130px;
+    left: 48vw;
+    top: 41vh;
     transition: transform .5s ease-in-out; /* Spin animation */
 }
 

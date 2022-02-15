@@ -1,0 +1,73 @@
+.btn_search {
+    margin-top: 5px;
+    background-color: transparent;
+    color: grey;
+    font-size: 22px;
+    border: 1px;
+    border-radius: 3px;
+    height: 50px;
+    width: 70px;
+    outline: 0;
+    cursor: pointer;
+    transition: 2s;
+    margin-bottom: 5px;
+}
+.btn_search:hover {
+    /* transition: 0.3s; */
+    border-style: solid;
+    border-color: grey;
+    color: black;
+    border-width: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #00000077;
+    outline: 0;
+    transform: translateY(1px);
+    box-sizing: content-box;
+    height: fit-content;
+}
+/* 
+.div_title12 {
+    padding: 16px 10px;
+    height: 100%;
+    font-size: 20px;
+    margin: 0;
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: top;
+    color: white;
+    height: 100%;
+    padding: 16px 10px;
+    transition: 0.5s;
+    box-sizing: content-box;
+} */
+
+.button-54 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-54:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+  }
+  
+  @media (min-width: 768px) {
+    .button-54 {
+      padding: 0.25em 0.75em;
+    }
+  }

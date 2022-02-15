@@ -1,10 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
+import "./styles/Filter.css";
 export const Filter = ({handleChangeAlf, handleChangeRat, handleChangeGen, handleChangeOrigin}) => {
   const videogamesGenres = useSelector((state) => state.videogamesGenres);
   return (
     <div className="div_filters">
+      <label className='label_fil'>
+                    Filters &nbsp;
+                </label>
       <select onChange={(e)=>{handleChangeAlf(e)}} name="Orden alfabético">
         <option value="All">Orden alfabético</option>
         <option value="asc">A-Z</option>

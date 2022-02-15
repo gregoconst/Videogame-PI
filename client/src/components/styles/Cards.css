@@ -1,13 +1,13 @@
-.card-container {
+/* .card-container {
     color: aliceblue;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
+} */
 
-.card-name {
+/* .card-name {
     font-size: 0.81em;
     width: 190%;
     display: flex;
@@ -16,27 +16,27 @@
     align-items: center;
     padding:5px 6px 4px 16px;
     margin-bottom: 1%;
-}
+} */
 
-.card {
+/* .card {
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items: center;
     width: 250px;
     box-shadow: -1px -1.1px 4.10px 2.90px rgba(171, 95, 216, 0.507);
-}
+} */
 
-.genres-info {
+/* .genres-info {
     font-size: 0.91em;
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items: center;
     padding: 1px 3px 12px 15px;
-}
+} */
 
-.vg-img {
+/* .vg-img {
     border-radius: 11px;
     box-shadow: -1.2px -1.10px 6.10px rgba(232, 231, 213, 0.897);
     margin: 0.5%;
@@ -44,20 +44,142 @@
     /* height:160px;
     width: 120%; */
     /* filter: blur(5px) sepia(0.7); */
-    transition: 520ms all;
-    box-sizing: content-box;
-}
-.vg-img:hover {
+    /* transition: 520ms all;
+    box-sizing: content-box; */
+/* }  */
+/* .vg-img:hover {
     height:180px;
     width: 130%;
     filter: blur(0px) sepia(0);
     transition: 450ms all;
-}
-.rating-info {
+} */
+/* .rating-info {
     padding: 15px 0px 0px 0px;
     font-size: 0.81em;
     margin: 1%;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+} */
+
+.card {
+    width: 220px;
+    margin: 30px;
+    margin-bottom: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    /* height: 40px; */
+  }
+  
+  .card .cover {
+    width: 100%;
+    /* height: 220px; */
+    position: relative;
+    overflow: hidden;
+    background-color: rgb(219, 219, 219);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+  
+  .card .cover img {
+    width: 140px;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 5px;
+    z-index: 1;
+    filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.5));
+  }
+  
+  .card .img__back {
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    background-size: cover;
+    border-radius: 20px;
+    transition: all 300ms;
+  }
+  
+  .card .description {
+    background: white;
+    margin-top: -30px;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .card .description h2 {
+    margin-top: 10px;
+    font-family: "Flexo-Demi", arial, sans-serif;
+    color: #313131;
+    font-size: 120%;
+    text-transform: none;
+    margin-bottom: 5px;
+  }
+  
+  .card .description .typesContainer p {
+    margin-top: 10px;
+    font-family: "Flexo-Medium", arial, sans-serif;
+    font-size: 11px;
+    padding: 5px;
+    margin-right: 10px;
+    width: 30%;
+    text-align: center;
+  }
+  
+  .card .description .idPokemon {
+    font-family: "Flexo-Bold", arial, sans-serif;
+    color: #919191;
+    font-size: 80%;
+    padding-top: 2px;
+  }
+  
+  /* .card .description button {
+    padding: 6px 20px;
+    margin-top: 20px;
+    border: none;
+    background: #fc466b;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 300ms;
+  } */
+  
+  /* .card .description button:hover {
+    background: #fd0638;
+  } */
+  
+  .card .description .typesContainer {
+    display: flex;
+  }
+
+  .button-54 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .button-54:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+  }
+  
+  @media (min-width: 768px) {
+    .button-54 {
+      padding: 0.25em 0.75em;
+    }
+  }

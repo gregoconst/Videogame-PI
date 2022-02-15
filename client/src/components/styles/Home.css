@@ -1,26 +1,32 @@
 .home-container {
   color: black;
-  height: 360vh;
-  background-attachment: cover;
-  background-color: black;
+  background-attachment:cover;
+  background-color: white;
+  background-image: url("https://images.hive.blog/0x0/https://files.peakd.com/file/peakd-hive/sadbear/2sqwuLsb-120436.gif");
+  
 }
 
+/* .navbar-container {
+  color: white;
+  height: 360vh;
+  background-attachment: cover;
+  background-color: white;
+} */
+
+
 .card-container {
-  height: 320px;
-  display: grid;
-  padding: 1.5%;
-  grid-template-columns: auto auto auto;
-  grid-column-gap: 9px;
-  grid-row-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  align-items: stretch;
-  background-color: black;
+  margin: 4px;
 }
 
 .card {
-  border: solid rgba(230, 219, 219, 0.678) 1.5px;
-  border-radius: 5%;
-  box-sizing: content-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 4px;
+  background-color: white;
 }
 
 /* .spinnerStyle {
@@ -35,4 +41,33 @@
     align-items: center;  
     margin-bottom: 30px;
     background-color: black;
+}
+
+.button-54 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  .button-54 {
+    padding: 0.25em 0.75em;
+  }
 }

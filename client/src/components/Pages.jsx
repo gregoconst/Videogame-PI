@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
+import "./styles/Pages.css";
 export const Pages = ({pagina, setPagina, maxrender}) => {
   const [input, setInput] = useState(1); //estado local
   const proximaPagina = () => {
@@ -33,12 +33,14 @@ export const Pages = ({pagina, setPagina, maxrender}) => {
   }
   return (
     <div>
-      <button disabled={pagina === 1 || pagina < 1} onClick={volverPagina}>◀</button>&nbsp;
+      <button className="button-54" role="button" disabled={pagina === 1 || pagina < 1} onClick={volverPagina}>◀</button>&nbsp;
       {/* <input onChange={(e)=>handleChange(e)} onKeyDown={(e) => handleInput(e)} name="page" autoComplete="off" value={input} /> */}
-      <button>{input}</button>
-      &nbsp;de&nbsp;
-       <button>{Math.ceil(maxrender)}</button>&nbsp;
-      <button disabled={pagina === Math.ceil(maxrender) || pagina > Math.ceil(maxrender)} onClick={proximaPagina}>▶</button>
+      <button className="button-54mod" >{input}</button>
+      &nbsp;
+      <label className="button-54mod">DE</label> 
+      &nbsp;
+       <button className="button-54mod" role="button">{Math.ceil(maxrender)}</button>&nbsp;
+      <button className="button-54" role="button" disabled={pagina === Math.ceil(maxrender) || pagina > Math.ceil(maxrender)} onClick={proximaPagina}>▶</button>
     </div>
   );
 };
