@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles/Create.css";
 import { NavBar } from "./NavBar";
 import plataformas from '../utils/platforms.json'
+
+
 export const Create = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -46,7 +48,7 @@ export const Create = () => {
       dataForm.rating === parseInt("0") ||
       dataForm.rating === "" ||
       dataForm.rating < parseInt("1") ||
-      dataForm.rating >= parseInt("5")
+      dataForm.rating > parseInt("5")
     ) {
       errors.rating = "Game Rating must be from 1 to 5 points.";
     }
@@ -55,6 +57,15 @@ export const Create = () => {
   /////////VALIDACION///////////
 
   //////HANDLES///////
+
+  function handleDelete(e) {
+    e.preventDefault();
+    setdataForm({
+      genres: dataForm.genres.filter((gen) => gen !== e.target.value),
+      platformas: dataForm.platforms.filter((plat) => plat !== e.target.value),
+    });
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!dataForm.background_image) {
@@ -81,38 +92,12 @@ export const Create = () => {
       });
       history("/home");
     } else alert("Game must have a name, rating, release date, description, genres and platforms");
-    // const cleanGenres = dataForm.genres.reduce((prev, actual) => {
-    //   if (!prev.includes(actual)) {
-    //     prev.push(actual);
-    //   }
-    //   return prev;
-    // }, []);
-    // console.log(cleanGenres);
-    // console.log(dataForm);
-    // const cleanPlatforms = dataForm.platforms.reduce((prev, actual) => {
-    //   if (!prev.includes(actual)) {
-    //     prev.push(actual);
-    //   }
-    //   return prev;
-    // }, []);
-    // setdataForm({
-    //   ...dataForm,
-    //   genres: cleanGenres,
-    //   platforms: cleanPlatforms,
-    // });
   };
 
-  const handleDelete = (e) => {
-    e.preventDefault();
-    setdataForm({
-      genres: dataForm.genres.filter((gen) => gen !== e.target.value),
-      platformas: dataForm.platforms.filter((plat) => plat !== e.target.value),
-    });
-  };
+  
 
   const handleInput = (e) => {
     setdataForm({ ...dataForm, [e.target.name]: e.target.value });
-    // console.log(dataForm);
 
     setErrors(
       //valido los datos de los input
@@ -129,7 +114,6 @@ export const Create = () => {
       ...dataForm,
       platforms: [...dataForm.platforms, e.target.value],
     });
-    console.log(dataForm)
   };
 
   const handleGenreSelected = (e) => {
@@ -138,34 +122,8 @@ export const Create = () => {
       ...dataForm,
       genres: [...dataForm.genres, e.target.value],
     });
-    console.log(dataForm)
   };
 
-  // const handleCheckboxGen = (genre) => {
-  //   setdataForm({ ...dataForm, genres: [...dataForm.genres, genre] });
-  //   console.log(dataForm, "data form holaaa");
-  // };
-
-  // const handleCheckboxPlat = (platform) => {
-  //   setdataForm({ ...dataForm, platforms: [...dataForm.platforms, platform] });
-  //   console.log(dataForm, "data form holaaa");
-  // };
-  // const handleCheckbox = (e) => {
-  //   if (e.target.checked) {
-  //     setdataForm((prevState) => {
-  //       return {
-  //         ...prevState,
-  //         genres: [...prevState.genres, e.target.value],
-  //       };
-  //     });
-  //   }
-  //   if (!e.target.checked) {
-  //     dataForm.genres.splice(dataForm.genres.indexOf(e.target.value), 1);
-  //     setdataForm((prevState) => {
-  //       return { ...prevState };
-  //     });
-  //   }
-  // };
   //////////////////
   let id = 0;
   function KeyGenerator() {
@@ -251,8 +209,8 @@ export const Create = () => {
         </div>
         <br />
         <div className="btn-genres">
-          {dataForm.genres.map((gen,i) => (
-            <div key={i}>
+          {dataForm.genres.map((gen) => (
+            <div key={KeyGenerator()}>
               <button
                 onClick={handleDelete}
                 className="btn-destroy-genre"
@@ -278,8 +236,6 @@ export const Create = () => {
                   {plat}
                 </option>
               ))}
-              {/* {console.log(platforms.name,"soy plat.name")}
-                  {console.log(platforms.id,"soy plat.id")} */}
           </select>
         </div>
         <br />

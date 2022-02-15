@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { getVideogameDetail } from "../actions";
 import { useParams } from "react-router";
 import { Backbutton } from "./Backbutton";
 import { useDispatch, useSelector } from "react-redux";
 import { clearVideogameState } from "./../actions/index";
 import "./styles/Detail.css";
+import spinner from "../utils/loading.gif"
 
 export default function Detail() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const juego = useSelector((state) => state.videogamesDetail);
-  const plataformas = useSelector((state) => state.platforms)
+  // const plataformas = useSelector((state) => state.platforms)
   useEffect(() => {
     dispatch(getVideogameDetail(id));
-    return () => clearVideogameState();
-  }, []); //el juego se crea sin platforms
-//   useEffect(() => {
-//     axios.get(`http://localhost:3001/videogames/${id}`)
-//         .then((responseBack) => {
-//           setJuego(responseBack.data)
-//         })
-
-//         return() => {
-//           setJuego(null)   // CleanUp
-//         }
-// }, [id]);
-console.log(juego,"a ver que onda");
+    dispatch(clearVideogameState());
+  }, [id, dispatch]);
   if (juego.length < 1) {
-    return <div>cargandooOOoo</div>;
+    return <div><img src={spinner} alt="...loading" className="spinnerStyle" /></div>;
   }
-  // console.log(juego?.find(e => e.inDB),"soy estado de plataformassss")
   return (
     <div className="details-container">
         <Backbutton/>

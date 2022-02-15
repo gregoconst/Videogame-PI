@@ -1,5 +1,4 @@
 import axios from "axios";
-import plataformas from "../utils/platforms.json"
 
 import { VIDEOGAMES, GENRES, VIDEOGAMES_NAME } from "../utils/backroutes.js";
 
@@ -48,7 +47,7 @@ export const setVideogamesOrder = (order) => {
     payload: order,
   };
 };
-export function setVideogamesOrigin(origin) {
+export const setVideogamesOrigin = (origin) => {
   return {
     type: "SET_FILTER_VIDEOGAMES_ORIGIN",
     payload: origin,
@@ -75,7 +74,6 @@ export function createVideogames(dataForm) {
       VIDEOGAMES,
       dataForm
     );
-
     return infoGame;
   };
 }

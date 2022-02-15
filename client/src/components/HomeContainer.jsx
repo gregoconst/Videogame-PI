@@ -19,17 +19,11 @@ import spinner from "../utils/loading.gif"
 export default function Home() {
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames);
-  const spinnerLoader = useSelector((state) => state.spinnerLoader);
   useEffect(() => {
     dispatch(getVideogameGenres());
     dispatch(setLoaderTrue());
     dispatch(getVideogames());
-  }, []);
-  // useEffect(() => {
-  //   dispatch(getVideogames());
-  // }, [dispatch]);
-  // console.log(getVideogameGenres(), "generos cargadossss");
-  // console.log(getVideogames());
+  }, [dispatch]);
   ///// FILTER & ORDERS & HANDLES ///////
   const [order, setOrder] = useState("");
 
@@ -62,10 +56,6 @@ export default function Home() {
   const [juegosPorPagina, setJuegosPorPagina] = useState(15);
   const maxrender = videogames.length / juegosPorPagina;
   ////// PAGINADO ////////
-  // console.log(videogames[0] ? videogames : videogames[0],"que onda");
-
-  // let mapeo = videogames?.filter(e => e.inDB === true).map(f => f.genres.name)
-  // console.log(mapeo,"holaaaaaaaaa soy mapeooo");
   if (!videogames.length) {
     return (
       <div className="loading">
