@@ -74,14 +74,14 @@ console.log(juego,"a ver que onda");
              <strong>{juego.genres?.map((el) => el.name).join(", ")}.</strong> 
               </div>
             </ul>
-            {/* <ul>
+            <ul>
               <h3>
                 <u class="button-54"> <strong>Release Date:</strong></u>
               </h3>{" "}
             <div class="button-54">
              <strong>{juego.released}.</strong> 
               </div>
-            </ul> */}
+            </ul>
             <ul>
             <div class="button-54">
               <h3>
