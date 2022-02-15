@@ -25,6 +25,7 @@ export default function Home() {
     dispatch(getVideogames());
   }, [dispatch]);
   ///// FILTER & ORDERS & HANDLES ///////
+  //eslint-disable-next-line
   const [order, setOrder] = useState("");
 
   const handleChangeAlf = (e) => {
@@ -53,8 +54,12 @@ export default function Home() {
   ///// FILTER & ORDERS ///////
   ////// PAGINADO ////////
   const [pagina, setPagina] = useState(1);
+  //eslint-disable-next-line
   const [juegosPorPagina, setJuegosPorPagina] = useState(15);
   const maxrender = videogames.length / juegosPorPagina;
+  // const handlePagination = (pageNumber) => {
+  //   setPagina(pageNumber); //PROBAR PAGINADO!!!!!
+  // };
   ////// PAGINADO ////////
   if (!videogames.length) {
     return (

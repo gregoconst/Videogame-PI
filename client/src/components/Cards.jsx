@@ -5,7 +5,7 @@ export const Cards = ({ id, name, genres, background_image, rating }) => {
   return (
     <div className={'card'}>
     <div className={'cover'}>
-      <img src={background_image} alt="Pokemons" />
+      <img src={background_image} alt="Videogames" />
       <div className={'img__back'}></div>
     </div>
     <div className={'description'}>

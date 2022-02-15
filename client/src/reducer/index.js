@@ -1,5 +1,3 @@
-// import { GetVideogamesList } from "../controladores"
-
 const initialState = {
   videogames: [],
   videogamesList: [],
@@ -17,7 +15,6 @@ function rootReducer(state = initialState, action) {
       ...state,
       videogames: action.payload,
       videogamesList: action.payload,
-      // platforms: result,
       filteredVideogames: action.payload,
       spinnerLoader: false,
     };
@@ -40,30 +37,6 @@ function rootReducer(state = initialState, action) {
       spinnerLoader: false,
     };
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORDER") {
-    // if (action.payload === "asc") {
-    //   return {
-    //     ...state,
-    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
-    //       //el slice me permite hacer una copia para no modificar mi array principal
-    //       if (a.name > b.name) return 1;
-    //       if (a.name < b.name) return -1;
-    //       return 0;
-    //     }),
-    //   };
-    // } else if (action.payload === "desc") {
-    //   return {
-    //     ...state,
-    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
-    //       if (a.name > b.name) return -1;
-    //       if (a.name < b.name) return 1;
-    //       return 0;
-    //     }),
-    //   };
-    // }
-    // return {
-    //   ...state,
-    //   videogames: state.filteredVideogames,
-    // };
     let orderedVideogames = [...state.videogames]
             
     let order =  orderedVideogames.sort((a, b) => {
@@ -80,26 +53,6 @@ function rootReducer(state = initialState, action) {
         videogames: order,
     };
   } else if (action.type === "SET_FILTER_VIDEOGAMES_RATING") {
-    // if (action.payload === "top") {
-    //   return {
-    //     ...state,
-    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
-    //       //el slice me permite hacer una copia para no modificar mi array principal
-    //       return b.rating - a.rating;
-    //     }),
-    //   };
-    // } else if (action.payload === "low") {
-    //   return {
-    //     ...state,
-    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
-    //       return a.rating - b.rating;
-    //     }),
-    //   };
-    // }
-    // return {
-    //   ...state,
-    //   videogames: state.filteredVideogames,
-    // };
     let videogamesRating = [...state.videogames];
 
     let sortRating = videogamesRating.sort((a, b) => {
@@ -144,20 +97,8 @@ function rootReducer(state = initialState, action) {
       ...state,
       videogames: concatGen,
     };
-    // const genre = action.payload;
-    // const filtrado = state.videogamesList?.filter((juego) => {
-    //   return juego.genres.includes(genre);
-    // });
-    // if (genre === "All") return { ...state, videogames: state.videogamesList };
-    // else {
-    //   return {
-    //     ...state,
-    //     videogames: filtrado,
-    //     filteredVideogames: filtrado,
-    //   };
-    // }
+    
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORIGIN") {
-    //no pude hacerlo andar con if porque soy un tonto
     if (action.payload === "VideogamesDB") {
       return {
         ...state,
