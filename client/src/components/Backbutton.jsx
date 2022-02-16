@@ -6,7 +6,7 @@ export const Backbutton = () => {
     return (
 		<div>
 			<NavLink to="/home" >
-                <button class="button-54" type='button'>
+                <button className="button-54" type='button'>
                     BACK
                 </button>
             </NavLink>

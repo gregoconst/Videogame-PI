@@ -4,7 +4,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const { Videogame, Genre, Platform } = require("../db");
 const { Op } = require("sequelize");
-const { normalizeDataDb, getAllGames, getQueryGames } = require("./utils");
+const { normalizeDataDb, getAllGames, getApiInfo } = require("./utils");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -17,57 +17,57 @@ var videogamesDb = [];
 // Ejemplo: router.use('/auth', authRouter);
 
 //FUNCIONES////////////////////
-const ObtenerPlatforms = async () => {
-  let lista = [];
-  const videogamesList = await Promise.all([
-    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`),
-    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2`), //DEPRECATED
-    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=3`),
-    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=4`),
-    axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=5`),
-  ]);
-  for (let i = 0; i < videogamesList.length; i++) {
-    lista = [...lista, ...videogamesList[i].data.results];
-  }
-  // console.log(lista);
-  let platforms = lista?.map((element) => {
-    return {
-      platforms: element.platforms?.map((plat) => {
-        return {
-          name: plat.platform.name,
-          id: plat.platform.id,
-        };
-      }),
-    };
-  });
-  let allPlatforms = [];
-  platforms.map((e) => allPlatforms.push(...e.platforms));
-  let result = allPlatforms.reduce((acc, plat) => {
-    if (!acc.includes(plat)) {
-      acc.push(plat);
-    }
-    return acc;
-  }, []);
-  return result;
-};
-// console.log(ObtenerPlatforms());
-// const ObtenerDb = async () => {
-//   return await Videogame.findAll({
-//     includes: {Genre}
-//   })
+// const ObtenerPlatforms = async () => {
+//   let lista = [];
+//   const videogamesList = await Promise.all([
+//     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`),
+//     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2`), //DEPRECATED
+//     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=3`),
+//     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=4`),
+//     axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=5`),
+//   ]);
+//   for (let i = 0; i < videogamesList.length; i++) {
+//     lista = [...lista, ...videogamesList[i].data.results];
+//   }
+//   // console.log(lista);
+//   let platforms = lista?.map((element) => {
+//     return {
+//       platforms: element.platforms?.map((plat) => {
+//         return {
+//           name: plat.platform.name,
+//           id: plat.platform.id,
+//         };
+//       }),
+//     };
+//   });
+//   let allPlatforms = [];
+//   platforms.map((e) => allPlatforms.push(...e.platforms));
+//   let result = allPlatforms.reduce((acc, plat) => {
+//     if (!acc.includes(plat)) {
+//       acc.push(plat);
+//     }
+//     return acc;
+//   }, []);
+//   return result;
 // };
 
 
 ////////////////////////////////
-router.get("/videogamesplatforms", async (req, res, next) => {
-  try {
-    const platforms = await ObtenerPlatforms();
-    platforms.forEach(async (p) => {});
-    return res.send(platforms);
-  } catch (error) {
-    console.log(error);
-  }
-});
+router.get("/videogamesplatforms", async (req, res) => {
+  const juegos = await getApiInfo();
+  const allPlatforms = [];
+  juegos.map(game => {
+      game.platforms.map(platform => {
+          if (!allPlatforms.includes(platform)) {
+              allPlatforms.push(platform)
+          }
+      })
+  })
+  allPlatforms.length
+      ? res.status(200).json(allPlatforms)
+      : res.status(404).send('Error')
+}
+)
 
 router.get("/videogames", async (req, res) => {
   // Busqueda de videogames y por nombre:
@@ -116,7 +116,7 @@ router.get("/genres", async (req, res, next) => {
     const llamadoApi = await axios.get(
       `https://api.rawg.io/api/genres?key=${API_KEY}`
     );
-    const videogamesGenres = llamadoApi.data.results;
+    const videogamesGenres = await llamadoApi.data.results;
     videogamesGenres.forEach(async (g) => {
       await Genre.findOrCreate({
         where: {

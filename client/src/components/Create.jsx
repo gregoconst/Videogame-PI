@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import {
   createVideogames,
   getVideogameGenres,
-  clearVideogameState
+  clearVideogameState,
+  getPlatforms
 } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles/Create.css";
 import { NavBar } from "./NavBar";
-import plataformas from '../utils/platforms.json'
 
 
 export const Create = () => {
@@ -29,11 +29,12 @@ export const Create = () => {
   useEffect(() => {
     dispatch(clearVideogameState())
     dispatch(getVideogameGenres());
+    dispatch(getPlatforms())
   }, [dispatch]);
 
   const generos = useSelector((state) => state.videogamesGenres);
-  let plataforms = plataformas?.map(e => e.name)
-  
+  const platforms = useSelector((state) => state.platforms)
+  console.log(platforms);
   /////////VALIDACION///////////
   function validateErrors(dataForm) {
     let errors = {};
@@ -230,9 +231,9 @@ export const Create = () => {
             <option name="platforms" key="keyPlat">
               Select Platforms
             </option>
-            {plataforms &&
-              plataforms.map((plat,i) => (
-                <option key={i} value={plat}>
+            {platforms &&
+              platforms.map(plat => (
+                <option key={plat} value={plat}>
                   {plat}
                 </option>
               ))}

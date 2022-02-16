@@ -69,45 +69,43 @@ export const setVideogamesRating = (rating) => {
 };
 
 export function createVideogames(dataForm) {
-  return async function () {
-    const infoGame = await axios.post(
+  return function (dispatch) {
+    return axios.post(
       VIDEOGAMES,
       dataForm
-    );
-    return infoGame;
+    )
+    .then((resp) => {
+      return dispatch({type: "POST_VIDEOGAME", payload: resp})
+    })
+    .catch((e)=>{
+      return alert("No se pudo crear el juego")
+    })
   };
 }
 
-// export const getPlatforms = () => async (dispatch) => {
-//   // try {
-//   //   const resp = await axios.get("http://localhost:3001/videogamesplatforms");
-//   //   return dispatch({ type: "GET_PLATFORMS", payload: resp.data });
-//   // } catch (error) {
-//   //   console.log(error);
-//   // }
-
-//   try {
-//     let platformsRaw = plataformas.map(e => e.name)
-//     console.log(platformsRaw);
-//     return dispatch({type: "GET_PLATFORMS", payload: platformsRaw.name})
-    
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export function getPlatforms() {
+  return async (dispatch) => {
+      let resp = await axios.get('http://localhost:3001/videogamesplatforms')
+      console.log(resp.data);
+      return dispatch({
+          type: "GET_PLATFORMS",
+          payload: resp.data
+      })
+  }
+}
 
 export const clearVideogameState = () => (dispatch) => {
 	dispatch({type: 'CLEAR_VIDEOGAME_STATE'});
 };
 
-export function setLoaderTrue() {
-  return {
-    type: "LOADER_TRUE",
-  };
-}
+// export function setLoaderTrue() {
+//   return {
+//     type: "LOADER_TRUE",
+//   };
+// }
 
-export function setLoaderFalse() {
-  return {
-    type: "LOADER_FALSE",
-  };
-}
+// export function setLoaderFalse() {
+//   return {
+//     type: "LOADER_FALSE",
+//   };
+// }

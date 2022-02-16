@@ -22,7 +22,6 @@ export default function Detail() {
   return (
     <div className="details-container">
         <Backbutton/>
-      <body>
         {
           <div className="info-details">
             <h2>
@@ -38,17 +37,17 @@ export default function Detail() {
             <br />
             <ul>
               <h3>
-                <u class="button-54">Rating:</u>
+                <u className="button-54">Rating:</u>
               </h3>{" "}
-            <div class="button-54">
+            <div className="button-54">
              <strong>{juego.rating}</strong> 
               </div>
             </ul>
             <ul>
               <h3>
-                <u class="button-54">Platforms:</u>
+                <u className="button-54">Platforms:</u>
               </h3>{" "}
-              <div class="button-54">
+              <div className="button-54">
              <strong>{juego.id?.length > 7
                 ? juego.platforms?.map((el) => el).join(" || ")
                 : juego.platforms?.map((el) => el.platform.name).join(" || ")}
@@ -57,24 +56,24 @@ export default function Detail() {
             </ul>
             <ul>
               <h3>
-                <u class="button-54">Genres:</u>
+                <u className="button-54">Genres:</u>
               </h3>{" "}
-            <div class="button-54">
+            <div className="button-54">
              <strong>{juego.genres?.map((el) => el.name).join(", ")}.</strong> 
               </div>
             </ul>
             <ul>
               <h3>
-                <u class="button-54"> <strong>Release Date:</strong></u>
+                <u className="button-54"> <strong>Release Date:</strong></u>
               </h3>{" "}
-            <div class="button-54">
+            <div className="button-54">
              <strong>{juego.released}.</strong> 
               </div>
             </ul>
             <ul>
-            <div class="button-54">
+            <div className="button-54">
               <h3>
-                <button disabled class="button-54"> <strong>Description:</strong> </button>
+                <button disabled className="button-54"> <strong>Description:</strong> </button>
               </h3>
               <p id="text">
                 <strong> {juego.description_raw || juego.description} </strong>
@@ -84,7 +83,6 @@ export default function Detail() {
             <br />
           </div>
         }
-      </body>
     </div>
   );
 }

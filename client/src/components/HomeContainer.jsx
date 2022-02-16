@@ -11,7 +11,7 @@ import {
   setVideogamesOrigin,
   getVideogameGenres,
   getVideogames,
-  setLoaderTrue,
+  // setLoaderTrue,
 } from "./../actions/index";
 import { NavBar } from "./NavBar";
 import "./styles/Home.css";
@@ -21,7 +21,7 @@ export default function Home() {
   const videogames = useSelector((state) => state.videogames);
   useEffect(() => {
     dispatch(getVideogameGenres());
-    dispatch(setLoaderTrue());
+    // dispatch(setLoaderTrue());
     dispatch(getVideogames());
   }, [dispatch]);
   ///// FILTER & ORDERS & HANDLES ///////
@@ -119,7 +119,7 @@ export default function Home() {
                     id={juego.id}
                     name={juego.name}
                     genres={
-                      juego.genres?.map((g) => (g.name)).join(' - ') || juego.Genres?.join(' - ')} //Genres es para generos de los juegos en API!!!!!!!!!
+                      juego.genres?.map((g) => (g.name)).join(' - ')} //Genres es para generos de los juegos en API!!!!!!!!!
                     background_image={juego.background_image}
                     rating={juego.rating}
                   />

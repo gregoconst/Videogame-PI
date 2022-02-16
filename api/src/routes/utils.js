@@ -47,7 +47,12 @@ const getApiInfo = async () => {
         rating: element.rating,
         released: element.released,
         platforms: element.platforms?.map((plat) => plat.platform.name),
-        Genres: element.genres?.map((gen) => gen.name),
+        genres: element.genres?.map((gen) => {
+          return {
+            name: gen.name,
+            id: gen.id
+          }
+        }),
         inDB: false,
       };
     });
