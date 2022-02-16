@@ -10,8 +10,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import "./styles/Create.css";
 import { NavBar } from "./NavBar";
-
-
 export const Create = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -58,7 +56,6 @@ export const Create = () => {
   /////////VALIDACION///////////
 
   //////HANDLES///////
-
   function handleDelete(e) {
     e.preventDefault();
     setdataForm({

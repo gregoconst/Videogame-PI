@@ -42,45 +42,74 @@ function rootReducer(state = initialState, action) {
       // spinnerLoader: false,
     };
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORDER") {
-    if (action.payload === "asc") {
-      return {
+    let orderedVideogames = [...state.videogames]
+
+    let order =  orderedVideogames.sort((a, b) => {
+        if(a.name.toUpperCase() < b.name.toUpperCase()) {
+            return action.payload === 'asc' ? -1 : 1;
+        }
+        if(a.name.toUpperCase() > b.name.toUpperCase()) {
+            return action.payload === 'desc' ? -1 : 1;
+        }
+        return 0;
+    })
+    return {
         ...state,
-        videogames: state.filteredVideogames?.slice().sort((a, b) => {
-          if (a.name > b.name) return 1;
-          if (a.name < b.name) return -1;
-          return 0;
-        }),
-      };
-    } else if (action.payload === "desc") {
-      return {
-        ...state,
-        videogames: state.filteredVideogames?.slice().sort((a, b) => {
-          if (a.name > b.name) return -1;
-          if (a.name < b.name) return 1;
-          return 0;
-        }),
-      };
-    } else {
-      return { ...state, videogames: state.filteredVideogames };
+        videogames: order,
     }
+    // if (action.payload === "asc") {
+    //   return {
+    //     ...state,
+    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
+    //       if (a.name > b.name) return 1;
+    //       if (a.name < b.name) return -1;
+    //       return 0;
+    //     }),
+    //   };
+    // } else if (action.payload === "desc") {
+    //   return {
+    //     ...state,
+    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
+    //       if (a.name > b.name) return -1;
+    //       if (a.name < b.name) return 1;
+    //       return 0;
+    //     }),
+    //   };
+    // } else {
+    //   return { ...state, videogames: state.filteredVideogames };
+    // }
   } else if (action.type === "SET_FILTER_VIDEOGAMES_RATING") {
-    if (action.payload === "top") {
-      return {
-        ...state,
-        videogames: state.filteredVideogames?.slice().sort((a, b) => {
-          return b.rating - a.rating;
-        }),
-      };
-    } else if (action.payload === "low") {
-      return {
-        ...state,
-        videogames: state.filteredVideogames?.slice().sort((a, b) => {
-          return a.rating - b.rating;
-        }),
-      };
-    } else {
-      return { ...state, videogames: state.filteredVideogames };
-    }
+    let videogamesRating = [...state.videogames];
+    let sortRating = videogamesRating.sort((a, b) => {
+      if(a.rating < b.rating) {
+          return action.payload === 'low' ? -1 : 1;
+      }
+      if(a.rating > b.rating) {
+          return action.payload === 'top' ? -1 : 1;
+      }
+      return 0;
+  });
+  return {
+      ...state,
+      videogames: sortRating,
+  };
+    // if (action.payload === "top") {
+    //   return {
+    //     ...state,
+    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
+    //       return b.rating - a.rating;
+    //     }),
+    //   };
+    // } else if (action.payload === "low") {
+    //   return {
+    //     ...state,
+    //     videogames: state.filteredVideogames?.slice().sort((a, b) => {
+    //       return a.rating - b.rating;
+    //     }),
+    //   };
+    // } else {
+    //   return { ...state, videogames: state.filteredVideogames };
+    // }
   } else if (action.type === "SET_FILTER_VIDEOGAMES_GENRES") {
     const genre = action.payload; //genre debería llegar como un objeto con id y name
     if (genre === "All")
