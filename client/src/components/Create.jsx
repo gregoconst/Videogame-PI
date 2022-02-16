@@ -56,13 +56,13 @@ export const Create = () => {
   /////////VALIDACION///////////
 
   //////HANDLES///////
-  function handleDelete(e) {
-    e.preventDefault();
-    setdataForm({
-      genres: dataForm.genres.filter((gen) => gen !== e.target.value),
-      platformas: dataForm.platforms.filter((plat) => plat !== e.target.value),
-    });
-  };
+  // function handleDelete(e) {
+  //   e.preventDefault();
+  //   setdataForm({
+  //     genres: dataForm.genres.filter((gen) => gen !== e.target.value),
+  //     platformas: dataForm.platforms.filter((plat) => plat !== e.target.value),
+  //   });
+  // };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -209,13 +209,12 @@ export const Create = () => {
         <div className="btn-genres">
           {dataForm.genres.map((gen) => (
             <div key={KeyGenerator()}>
-              <button
-                onClick={handleDelete}
-                className="btn-destroy-genre"
+              <p
+                className="button-54"
                 value={gen}
               >
                 {gen}
-              </button>
+              </p>
             </div>
           ))}
         </div>
@@ -240,13 +239,12 @@ export const Create = () => {
         <div className="btn-genres">
           {dataForm.platforms.map((plat) => (
             <div key={KeyGenerator()}>
-              <button
-                onClick={handleDelete}
-                className="btn-destroy-genre"
+              <p
+                className="button-54"
                 value={plat}
               >
                 {plat}
-              </button>
+              </p>
             </div>
           ))}
         </div>
