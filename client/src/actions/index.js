@@ -84,7 +84,8 @@ export function createVideogames(dataForm) {
 }
 
 export function getPlatforms() {
-  return async (dispatch) => {
+  try {
+    return async (dispatch) => {
       let resp = await axios.get('http://localhost:3001/videogamesplatforms')
       console.log(resp.data);
       return dispatch({
@@ -92,6 +93,10 @@ export function getPlatforms() {
           payload: resp.data
       })
   }
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
 
 export const clearVideogameState = () => (dispatch) => {
