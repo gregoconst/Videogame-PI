@@ -72,7 +72,7 @@ export const Create = () => {
     }
     if (
       dataForm.name &&
-      dataForm.rating < 5 &&
+      dataForm.rating <= 5 &&
       dataForm.released &&
       dataForm.description &&
       dataForm.genres &&
@@ -116,10 +116,12 @@ export const Create = () => {
 
   const handleGenreSelected = (e) => {
     e.preventDefault();
-    setdataForm({
-      ...dataForm,
-      genres: [...dataForm.genres, e.target.value],
-    });
+    if (!dataForm.genres.includes(e.target.value)) {
+      setdataForm({
+        ...dataForm,
+        genres: [...dataForm.genres, e.target.value],
+      });
+    }
   };
 
   //////////////////

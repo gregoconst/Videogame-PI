@@ -170,4 +170,20 @@ router.post("/videogames", async (req, res) => {
     console.log(error);
   }
 });
+
+
+
+router.post('/addgenre', async (req,res) => {
+  const {name} = req.query;
+  try {
+    let generocreado = await Genre.findOrCreate({
+      where: { name: name }
+    })
+    res.status(202).json(generocreado)
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+
 module.exports = router;
