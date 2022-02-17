@@ -153,7 +153,7 @@ export const Create = () => {
             onChange={handleInput}
             type="url"
             name="img"
-            value={dataForm.img}
+            value={dataForm.background_image}
           />
         </div>
         <br />
