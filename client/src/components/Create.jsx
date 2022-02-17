@@ -32,7 +32,6 @@ export const Create = () => {
 
   const generos = useSelector((state) => state.videogamesGenres);
   const platforms = useSelector((state) => state.platforms)
-  // console.log(platforms);
   /////////VALIDACION///////////
   function validateErrors(dataForm) {
     let errors = {};

@@ -111,7 +111,7 @@ router.get("/videogames/:id", async (req, res, next) => {
   }
 });
 
-router.get("/genres", async (req, res, next) => {
+router.get("/genres", async (req, res) => {
   try {
     const llamadoApi = await axios.get(
       `https://api.rawg.io/api/genres?key=${API_KEY}`
