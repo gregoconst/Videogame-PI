@@ -68,7 +68,7 @@ export const setVideogamesRating = (rating) => {
   };
 };
 
-export function createVideogames(dataForm) { //promesa
+export function createVideogames(dataForm) { 
   return function (dispatch) {
     return axios.post(
       VIDEOGAMES,

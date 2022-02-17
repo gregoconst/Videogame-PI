@@ -21,7 +21,7 @@ export const Create = () => {
     rating: "",
     platforms: [],
     genres: [],
-    img: "",
+    background_image: "",
   });
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const Create = () => {
 
   const generos = useSelector((state) => state.videogamesGenres);
   const platforms = useSelector((state) => state.platforms)
-  console.log(platforms);
+  // console.log(platforms);
   /////////VALIDACION///////////
   function validateErrors(dataForm) {
     let errors = {};
@@ -56,13 +56,14 @@ export const Create = () => {
   /////////VALIDACION///////////
 
   //////HANDLES///////
-  // function handleDelete(e) {
-  //   e.preventDefault();
-  //   setdataForm({
-  //     genres: dataForm.genres.filter((gen) => gen !== e.target.value),
-  //     platformas: dataForm.platforms.filter((plat) => plat !== e.target.value),
-  //   });
-  // };
+  function handleDelete(e) {
+    e.preventDefault();
+    setdataForm({
+      ...dataForm,
+      genres: dataForm.genres.filter((gen) => gen !== e.target.value),
+      platforms: dataForm.platforms.filter((plat) => plat !== e.target.value),
+    });
+  };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +73,7 @@ export const Create = () => {
     }
     if (
       dataForm.name &&
-      dataForm.rating &&
+      dataForm.rating < 5 &&
       dataForm.released &&
       dataForm.description &&
       dataForm.genres &&
@@ -89,7 +90,7 @@ export const Create = () => {
         platforms: [],
       });
       history("/home");
-    } else alert("Game must have a name, rating, release date, description, genres and platforms");
+    } else alert("Game must have a name, rating < 5, release date, description, genres and platforms");
   };
 
   
@@ -209,12 +210,13 @@ export const Create = () => {
         <div className="btn-genres">
           {dataForm.genres.map((gen) => (
             <div key={KeyGenerator()}>
-              <p
+              <button
                 className="button-54"
                 value={gen}
+                onClick={handleDelete}
               >
                 {gen}
-              </p>
+              </button>
             </div>
           ))}
         </div>
@@ -239,12 +241,13 @@ export const Create = () => {
         <div className="btn-genres">
           {dataForm.platforms.map((plat) => (
             <div key={KeyGenerator()}>
-              <p
+              <button
                 className="button-54"
                 value={plat}
+                onClick={handleDelete}
               >
                 {plat}
-              </p>
+              </button>
             </div>
           ))}
         </div>
