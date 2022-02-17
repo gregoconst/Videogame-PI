@@ -111,10 +111,9 @@ const getQueryGames = async (req, res) => {
 
 const getAllGameName = async (req,res)=>{
   let name= req.query.name
-  let gamesDB = await getDB()
-  let page_size=15
+  let gamesDB = await getDbIinfo()
   let array=[]
-  let response = await axios.get(`https://api.rawg.io/api/games?search=${name}&search_precise=true&key=${API_KEY}&page_size=${page_size}`)
+  let response = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
   response.data.results.map(el=>(
       array.push(  Object.keys(el).reduce(function(obj, k) {
                     if ( k==='id' ||k === 'background_image' || k === 'name' ||k === 'genres' || k==='released' ||k==='rating'
