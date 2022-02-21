@@ -21,7 +21,7 @@ export const Pages = ({pagina, setPagina, maxrender}) => {
       <button className="button-54" disabled={pagina <= 1} onClick={volverPagina}>◀</button>&nbsp;
       <button className="button-54mod" >{input}</button>
       &nbsp;
-      <label className="button-54mod">DE</label> 
+      <label className="button-54mod">OF</label> 
       &nbsp;
        <button className="button-54mod">{Math.ceil(maxrender)}</button>&nbsp;
       <button className="button-54" disabled={pagina >= Math.ceil(maxrender)} onClick={proximaPagina}>▶</button>

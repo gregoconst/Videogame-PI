@@ -101,7 +101,7 @@ export default function Home() {
         <Pages pagina={pagina} setPagina={setPagina} maxrender={maxrender} />
       </div>
       <div>
-        <button className="button-54" onClick={e => handleOnClick(e)}>Recargar Juegos</button>
+        <button className="button-54" onClick={e => handleOnClick(e)}>REFRESH GAMES</button>
       </div>
       <div className="card-container">
         {videogames &&
@@ -114,7 +114,6 @@ export default function Home() {
               return (
                 <div className="card" key={juego.id}>
                   <Cards
-                    // !videogames[0].inDB? juego.Genres.join(' - ') : videogames[0].genres.map((gen)=> (gen.name)).join(' - ')
                     key={juego.id}
                     id={juego.id}
                     name={juego.name}
@@ -123,7 +122,7 @@ export default function Home() {
                         <div className="button-54" key={g.id} >
                           {g.name}
                         </div>
-                      ))} //Genres es para generos de los juegos en API!!!!!!!!!
+                      ))}
                     background_image={juego.background_image}
                     rating={juego.rating}
                   />

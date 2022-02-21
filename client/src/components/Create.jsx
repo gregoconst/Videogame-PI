@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -79,7 +80,7 @@ export const Create = () => {
       dataForm.platforms
     ) {
       dispatch(createVideogames(dataForm));
-      alert("Videojuego creado");
+      Swal.fire("Succes" , "Videogame succesfully created", "success");
       setdataForm({
         name: "",
         description: "",
@@ -89,7 +90,7 @@ export const Create = () => {
         platforms: [],
       });
       history("/home");
-    } else alert("Game must have a name, rating < 5, release date, description, genres and platforms");
+    } else Swal.fire("Error" , "Game must have a name, rating < 5, release date, description, genres and platforms", "error");
   };
 
   

@@ -3,19 +3,19 @@ import { NavLink } from "react-router-dom";
 import "./styles/Cards.css";
 export const Cards = ({ id, name, genres, background_image, rating }) => {
   return (
-    <div className={'card'}>
-    <div className={'cover'}>
+    <div className={'card'} key="general">
+    <div className={'cover'} key="img1">
       <img src={background_image} alt="Videogames" />
-      <div className={'img__back'}></div>
+      <div className={'img__back'} key="img2"></div>
     </div>
-    <div className={'description'}>
+    <div className={'description'} key="name">
       <h2>{name} </h2>
       <br />
-      <div className={'description'}>
+      <div key="genres">
         {genres}
       </div>
       <br />
-      <div className="button-54">
+      <div className="button-54" key="rating">
        Rating: {rating}
       </div>
       <NavLink to={`/home/detail/${id}`}>

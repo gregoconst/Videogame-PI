@@ -9,12 +9,12 @@ export const Filter = ({handleChangeAlf, handleChangeRat, handleChangeGen, handl
                     Filters &nbsp;
                 </label>
       <select onChange={(e)=>{handleChangeAlf(e)}} name="Orden alfabético">
-        <option value="All">Orden alfabético</option>
+        <option value="All">Alphabetically</option>
         <option value="asc">A-Z</option>
         <option value="desc">Z-A</option>
       </select>
       <select onChange={(e)=>{handleChangeGen(e)}} name="Generos">
-        <option value="All">Genero</option>
+        <option value="All">Genre</option>
         {videogamesGenres &&
           videogamesGenres.map((t, i) => (
             <option key={i} value={t.name}>
@@ -23,14 +23,14 @@ export const Filter = ({handleChangeAlf, handleChangeRat, handleChangeGen, handl
           ))}
       </select>
       <select onChange={(e)=>{handleChangeOrigin(e)}} name="Origin">
-        <option value="All">Origen</option>
+        <option value="All">Source</option>
         <option value="RawgAPI">RawgAPI</option>
         <option value="VideogamesDB">VideogamesDB</option>
       </select>
       <select onChange={(e)=>{handleChangeRat(e)}} name="Rating">
         <option value="All">Rating</option>
-        <option value="top">Mayor</option>
-        <option value="low">Menor</option>
+        <option value="top">Top</option>
+        <option value="low">Low</option>
       </select>
     </div>
   );

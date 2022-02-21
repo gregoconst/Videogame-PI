@@ -19,9 +19,9 @@ export const SearchBar = () => {
   }
   return <div>
       <input onChange={(e)=>{handleInput(e)}} type="text" 
-      placeholder='Buscar juegos'
+      placeholder='Search game'
       />
       &nbsp;
-      <button className="button-54" onClick={(e)=>{handleSubmit(e)}} type='submit'>Buscar</button>
+      <button className="button-54" onClick={(e)=>{handleSubmit(e)}} type='submit'>SEARCH</button>
   </div>;
 };
