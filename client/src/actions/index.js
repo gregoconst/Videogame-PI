@@ -40,7 +40,6 @@ export const getVideogameDetail = (id) => async (dispatch) => {
   }
 };
 
-
 export const setVideogamesOrder = (order) => {
   return {
     type: "SET_FILTER_VIDEOGAMES_ORDER",
@@ -52,7 +51,7 @@ export const setVideogamesOrigin = (origin) => {
     type: "SET_FILTER_VIDEOGAMES_ORIGIN",
     payload: origin,
   };
-}
+};
 
 export const setVideogamesGenres = (genre) => {
   return {
@@ -68,49 +67,46 @@ export const setVideogamesRating = (rating) => {
   };
 };
 
-export function createVideogames(dataForm) { 
+export function createVideogames(dataForm) {
   return function (dispatch) {
-    return axios.post(
-      VIDEOGAMES,
-      dataForm
-    )
-    .then((resp) => {
-      return dispatch({type: "POST_VIDEOGAME", payload: resp})
-    })
-    .catch((e)=>{
-      return alert("No se pudo crear el juego")
-    })
+    return axios
+      .post(VIDEOGAMES, dataForm)
+      .then((resp) => {
+        return dispatch({ type: "POST_VIDEOGAME", payload: resp });
+      })
+      .catch((e) => {
+        return alert("No se pudo crear el juego");
+      });
   };
 }
 
 export function getPlatforms() {
-  try {
+  // try {
     return async (dispatch) => {
-      let resp = await axios.get('http://localhost:3001/videogamesplatforms')
-      console.log(resp.data);
+      let resp = await axios.get("http://localhost:3001/videogamesplatforms");
       return dispatch({
-          type: "GET_PLATFORMS",
-          payload: resp.data
-      })
-  }
-  } catch (error) {
-    console.log(error);
-  }
-  
+        type: "GET_PLATFORMS",
+        payload: resp.data,
+      });
+    // };
+  // } catch (error) {
+  //   console.log(error);
+  // }
+}
 }
 
 export const clearVideogameState = () => (dispatch) => {
-	dispatch({type: 'CLEAR_VIDEOGAME_STATE'});
+  dispatch({ type: "CLEAR_VIDEOGAME_STATE" });
 };
 
-// export function setLoaderTrue() {
-//   return {
-//     type: "LOADER_TRUE",
-//   };
-// }
+export function setLoaderTrue() {
+  return {
+    type: "LOADER_TRUE",
+  };
+}
 
-// export function setLoaderFalse() {
-//   return {
-//     type: "LOADER_FALSE",
-//   };
-// }
+export function setLoaderFalse() {
+  return {
+    type: "LOADER_FALSE",
+  };
+}

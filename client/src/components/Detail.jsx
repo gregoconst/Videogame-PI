@@ -5,7 +5,7 @@ import { Backbutton } from "./Backbutton";
 import { useDispatch, useSelector } from "react-redux";
 import { clearVideogameState } from "./../actions/index";
 import "./styles/Detail.css";
-import spinner from "../utils/loading.gif"
+import spinner from "../utils/loadingblanco.gif"
 
 export default function Detail() {
   let { id } = useParams();

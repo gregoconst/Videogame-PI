@@ -6,7 +6,7 @@ const initialState = {
   filteredVideogames: [],
   platforms: [],
   videogamesDetail: [], //detalles
-  // spinnerLoader: true
+  spinnerLoader: true
 };
 
 function rootReducer(state = initialState, action) {
@@ -16,7 +16,7 @@ function rootReducer(state = initialState, action) {
       videogames: action.payload,
       allVideogames: action.payload,
       filteredVideogames: action.payload,
-      // spinnerLoader: false,
+      spinnerLoader: false,
     };
   } else if (action.type === "GET_PLATFORMS") {
     console.log(action.payload, "soy action payload de platformssss");
@@ -33,13 +33,13 @@ function rootReducer(state = initialState, action) {
     return {
       ...state,
       videogamesDetail: action.payload,
-      // spinnerLoader: false,
+      spinnerLoader: false,
     };
   } else if (action.type === "GET_VIDEOGAMES_NAME") {
     return {
       ...state,
       videogames: action.payload,
-      // spinnerLoader: false,
+      spinnerLoader: false,
     };
   } else if (action.type === "SET_FILTER_VIDEOGAMES_ORDER") {
     let orderedVideogames = [...state.videogames]
@@ -158,12 +158,12 @@ function rootReducer(state = initialState, action) {
       filteredVideogames: [],
       videogames: [],
     };
-  } else if (action.payload === "LOADER_TRUE") {
+  } else if (action.type === "LOADER_TRUE") {
     return {
       ...state,
       spinnerLoader: true,
     };
-  } else if (action.payload === "LOADER_FALSE") {
+  } else if (action.type === "LOADER_FALSE") {
     return {
       ...state,
       spinnerLoader: false,

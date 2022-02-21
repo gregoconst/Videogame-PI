@@ -15,7 +15,7 @@ import {
 } from "./../actions/index";
 import { NavBar } from "./NavBar";
 import "./styles/Home.css";
-import spinner from "../utils/loading.gif"
+import spinner from "../utils/loadingblanco.gif"
 export default function Home() {
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames);
@@ -119,7 +119,11 @@ export default function Home() {
                     id={juego.id}
                     name={juego.name}
                     genres={
-                      juego.genres?.map((g) => (g.name)).join(' - ')} //Genres es para generos de los juegos en API!!!!!!!!!
+                      juego.genres?.map((g) => (
+                        <div className="button-54" key={g.id} >
+                          {g.name}
+                        </div>
+                      ))} //Genres es para generos de los juegos en API!!!!!!!!!
                     background_image={juego.background_image}
                     rating={juego.rating}
                   />

@@ -15,8 +15,8 @@ export const Cards = ({ id, name, genres, background_image, rating }) => {
         {genres}
       </div>
       <br />
-      <div className={'description'}>
-       Rating: &nbsp; {rating}
+      <div className="button-54">
+       Rating: {rating}
       </div>
       <NavLink to={`/home/detail/${id}`}>
         <button className="button-54" >Details</button>
