@@ -94,7 +94,7 @@ export const Create = () => {
     } else
       Swal.fire(
         "Error",
-        "Game must have a name, rating < 5, release date, description, genres and platforms",
+        "Game must have a name, rating 1 - 5, release date, description, genres and platforms",
         "error"
       );
   };
@@ -164,7 +164,7 @@ export const Create = () => {
             <label className="button-54">URL Image:</label>&nbsp;&nbsp;
             <input
               onChange={handleInput}
-              type="url"
+              type="text"
               name="img"
               value={dataForm.background_image}
             />
