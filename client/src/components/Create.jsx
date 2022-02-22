@@ -1,12 +1,12 @@
 import React from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   createVideogames,
   getVideogameGenres,
   clearVideogameState,
-  getPlatforms
+  getPlatforms,
 } from "./../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles/Create.css";
@@ -26,13 +26,13 @@ export const Create = () => {
   });
 
   useEffect(() => {
-    dispatch(clearVideogameState())
+    dispatch(clearVideogameState());
     dispatch(getVideogameGenres());
-    dispatch(getPlatforms())
+    dispatch(getPlatforms());
   }, [dispatch]);
 
   const generos = useSelector((state) => state.videogamesGenres);
-  const platforms = useSelector((state) => state.platforms)
+  const platforms = useSelector((state) => state.platforms);
   /////////VALIDACION///////////
   function validateErrors(dataForm) {
     let errors = {};
@@ -63,7 +63,7 @@ export const Create = () => {
       genres: dataForm.genres.filter((gen) => gen !== e.target.value),
       platforms: dataForm.platforms.filter((plat) => plat !== e.target.value),
     });
-  };
+  }
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ export const Create = () => {
       dataForm.platforms
     ) {
       dispatch(createVideogames(dataForm));
-      Swal.fire("Succes" , "Videogame succesfully created", "success");
+      Swal.fire("Succes", "Videogame succesfully created", "success");
       setdataForm({
         name: "",
         description: "",
@@ -88,12 +88,16 @@ export const Create = () => {
         rating: "",
         genres: [],
         platforms: [],
+        background_image: "",
       });
       history("/home");
-    } else Swal.fire("Error" , "Game must have a name, rating < 5, release date, description, genres and platforms", "error");
+    } else
+      Swal.fire(
+        "Error",
+        "Game must have a name, rating < 5, release date, description, genres and platforms",
+        "error"
+      );
   };
-
-  
 
   const handleInput = (e) => {
     setdataForm({ ...dataForm, [e.target.name]: e.target.value });
@@ -109,10 +113,14 @@ export const Create = () => {
 
   const handlePlatformSelected = (e) => {
     e.preventDefault();
-    setdataForm({
-      ...dataForm,
-      platforms: [...dataForm.platforms, e.target.value],
-    });
+    if (!dataForm.platforms.includes(e.target.value)) {
+      setdataForm({
+        ...dataForm,
+        platforms: [...dataForm.platforms, e.target.value],
+      });
+    } else {
+      Swal.fire('Error', "Can't select the same platform multiple times", "error")
+    }
   };
 
   const handleGenreSelected = (e) => {
@@ -122,6 +130,8 @@ export const Create = () => {
         ...dataForm,
         genres: [...dataForm.genres, e.target.value],
       });
+    } else {
+      Swal.fire('Error', "Can't select the same genre multiple times", "error")
     }
   };
 
@@ -132,134 +142,133 @@ export const Create = () => {
   }
   return (
     <div className="gameover">
-    <NavBar />
-    <br />
-    <br />
-    <br />
-    <div className="post-daleORC">
-      <form onSubmit={handleOnSubmit}>
-        <div>
-          <label className="button-54">Name:</label>&nbsp;&nbsp;
-          <input
-            className="input_form"
-            onChange={handleInput}
-            type="text"
-            name="name"
-            value={dataForm.name}
-          />
-          {errors.name && <p className="error"> {errors.name} </p>}
-        </div>
-        <br />
-        <div>
-          <label className="button-54">URL Image:</label>&nbsp;&nbsp;
-          <input
-            onChange={handleInput}
-            type="url"
-            name="img"
-            value={dataForm.background_image}
-          />
-        </div>
-        <br />
-        <div>
-          <label className="button-54">Release Date:</label>&nbsp;&nbsp;
-          <input
-            onChange={handleInput}
-            type="date"
-            id="released"
-            name="released"
-            value={dataForm.released}
-          />
+      <NavBar />
+      <br />
+      <br />
+      <br />
+      <div className="post-daleORC">
+        <form onSubmit={handleOnSubmit}>
+          <div>
+            <label className="button-54">Name:</label>&nbsp;&nbsp;
+            <input
+              className="input_form"
+              onChange={handleInput}
+              type="text"
+              name="name"
+              value={dataForm.name}
+            />
+            {errors.name && <p className="error"> {errors.name} </p>}
+          </div>
+          <br />
+          <div>
+            <label className="button-54">URL Image:</label>&nbsp;&nbsp;
+            <input
+              onChange={handleInput}
+              type="url"
+              name="img"
+              value={dataForm.background_image}
+            />
+          </div>
+          <br />
+          <div>
+            <label className="button-54">Release Date:</label>&nbsp;&nbsp;
+            <input
+              onChange={handleInput}
+              type="date"
+              id="released"
+              name="released"
+              value={dataForm.released}
+            />
+            {errors.released && <p className="error"> {errors.released} </p>}
+          </div>
+          <br />
+          <div>
+            <label className="button-54">Description:</label>&nbsp;&nbsp;
+            <input
+              onChange={handleInput}
+              type="textarea"
+              name="description"
+              value={dataForm.description}
+            />
+          </div>
+          <br />
+          <div>
+            <label className="button-54">Rating:</label>&nbsp;&nbsp;
+            <input
+              onChange={handleInput}
+              type="number"
+              name="rating"
+              value={dataForm.rating}
+            />
+            {errors.rating && <p className="error"> {errors.rating} </p>}
+          </div>
+          <br />
+          <div>
+            <label className="button-54">Genres</label>&nbsp;&nbsp;
+            <select onChange={handleGenreSelected} className="input-form">
+              <option name="genres" key="keyGen">
+                Select Genres
+              </option>
+              {generos &&
+                generos.map((gen) => (
+                  <option key={gen.id} value={gen.name}>
+                    {gen.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <br />
+          <div className="btn-genres">
+            {dataForm.genres.map((gen) => (
+              <div key={KeyGenerator()}>
+                <button
+                  className="button-54"
+                  value={gen}
+                  onClick={handleDelete}
+                >
+                  {gen}
+                </button>
+              </div>
+            ))}
+          </div>
 
-          {errors.released && <p className="error"> {errors.released} </p>}
-        </div>
-        <br />
-        <div>
-          <label className="button-54">Description:</label>&nbsp;&nbsp;
-          <input
-            onChange={handleInput}
-            type="textarea"
-            name="description"
-            value={dataForm.description}
-          />
-        </div>
-        <br />
-        <div>
-          <label className="button-54">Rating:</label>&nbsp;&nbsp;
-          <input
-            onChange={handleInput}
-            type="number"
-            name="rating"
-            value={dataForm.rating}
-          />
-          {errors.rating && <p className="error"> {errors.rating} </p>}
-        </div>
-        <br />
-        <div>
-          <label className="button-54">Genres</label>&nbsp;&nbsp;
-          <select onChange={handleGenreSelected} className="input-form">
-            <option name="genres" key="keyGen">
-              Select Genres
-            </option>
-            {generos &&
-              generos.map((gen) => (
-                <option key={gen.id} value={gen.name}>
-                  {gen.name}
-                </option>
-              ))}
-          </select>
-        </div>
-        <br />
-        <div className="btn-genres">
-          {dataForm.genres.map((gen) => (
-            <div key={KeyGenerator()}>
-              <button
-                className="button-54"
-                value={gen}
-                onClick={handleDelete}
-              >
-                {gen}
-              </button>
-            </div>
-          ))}
-        </div>
+          <br />
 
-        <br />
-
-        <div>
-          <label className="button-54">Platforms</label>&nbsp;&nbsp;
-          <select onChange={handlePlatformSelected} className="input-form">
-            <option name="platforms" key="keyPlat">
-              Select Platforms
-            </option>
-            {platforms &&
-              platforms.map(plat => (
-                <option key={plat} value={plat}>
+          <div>
+            <label className="button-54">Platforms</label>&nbsp;&nbsp;
+            <select onChange={handlePlatformSelected} className="input-form">
+              <option name="platforms" key="keyPlat">
+                Select Platforms
+              </option>
+              {platforms &&
+                platforms.map((plat) => (
+                  <option key={plat} value={plat}>
+                    {plat}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <br />
+          <div className="btn-genres">
+            {dataForm.platforms.map((plat) => (
+              <div key={KeyGenerator()}>
+                <button
+                  className="button-54"
+                  value={plat}
+                  onClick={handleDelete}
+                >
                   {plat}
-                </option>
-              ))}
-          </select>
-        </div>
-        <br />
-        <div className="btn-genres">
-          {dataForm.platforms.map((plat) => (
-            <div key={KeyGenerator()}>
-              <button
-                className="button-54"
-                value={plat}
-                onClick={handleDelete}
-              >
-                {plat}
-              </button>
-            </div>
-          ))}
-        </div>
+                </button>
+              </div>
+            ))}
+          </div>
 
-        <br />
-        <button className="button-54" type="submit" value="create_game">
-          CREAR
-        </button>
-      </form>
-    </div>
+          <br />
+          <button className="button-54" type="submit" value="create_game">
+            CREAR
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
