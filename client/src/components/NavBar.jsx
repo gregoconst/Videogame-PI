@@ -21,7 +21,7 @@ export const NavBar = () => {
                         <button className='button-54'>Home</button> 
                     </Link>
                     <Link to="/create" >
-                        <button className='button-54'>Create a game</button>
+                        <button className='button-54'>Create game</button>
                     </Link>
                 </li>
             </ul>
