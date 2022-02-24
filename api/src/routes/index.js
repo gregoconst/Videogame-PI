@@ -161,9 +161,7 @@ router.post("/videogames", async (req, res) => {
       where: { name: genres },
     });
     vGameCreated.addGenre(genreDB);
-    // vGameCreated.addPlatform(platformDB);
-
-    // console.log("soy vGameCreated >>>", vGameCreated);
+    
 
     res.status(200).json(vGameCreated);
   } catch (error) {
